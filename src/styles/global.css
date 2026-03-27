@@ -31,7 +31,7 @@ html {
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.6;
   transition: background-color 0.15s, color 0.15s;
 }
 
@@ -223,44 +223,54 @@ h2 {
 
 /* ── Prose (rendered markdown) ── */
 .prose {
-  line-height: 1.8;
+  line-height: 1.65;
+  font-size: 0.9375rem;
+}
+
+.prose > h1:first-child,
+.prose > h2:first-child {
+  margin-top: 0;
 }
 
 .prose h1 {
-  font-size: 1.75rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  margin: 2rem 0 0.75rem;
+  margin: 1.75rem 0 0.6rem;
   letter-spacing: -0.01em;
   line-height: 1.25;
 }
 
+/* Section label — small caps, accent color, bottom rule */
 .prose h2 {
-  font-size: 1.375rem;
-  font-weight: 600;
-  margin: 2rem 0 0.75rem;
-  letter-spacing: normal;
-  text-transform: none;
-  color: var(--text);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin: 2.25rem 0 1rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--border);
 }
 
 .prose h3 {
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 600;
-  margin: 1.5rem 0 0.5rem;
+  margin: 1.4rem 0 0.35rem;
+  color: var(--text);
 }
 
 .prose p {
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.95rem;
 }
 
 .prose ul,
 .prose ol {
-  margin: 1rem 0;
-  padding-left: 1.5rem;
+  margin: 0.65rem 0;
+  padding-left: 1.4rem;
 }
 
 .prose li {
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.25rem;
 }
 
 .prose strong {
@@ -307,20 +317,21 @@ h2 {
 .prose hr {
   border: none;
   border-top: 1px solid var(--border);
-  margin: 2.5rem 0;
+  margin: 1.75rem 0;
 }
 
 .prose table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1.5rem 0;
-  font-size: 0.9rem;
+  margin: 1rem 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
 }
 
 .prose th,
 .prose td {
   border: 1px solid var(--border);
-  padding: 0.5rem 0.75rem;
+  padding: 0.4rem 0.65rem;
   text-align: left;
 }
 
@@ -343,4 +354,30 @@ h2 {
   border-radius: 8px;
   margin-top: 1.5rem;
   background: var(--bg-secondary);
+}
+
+/* ── Inline chart embeds (inside prose) ── */
+.chart-embed {
+  margin: 1rem 0 1.5rem;
+}
+
+.chart-embed iframe {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-secondary);
+  display: block;
+}
+
+.chart-link {
+  display: block;
+  text-align: right;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  text-decoration: none;
+}
+
+.chart-link:hover {
+  color: var(--accent);
 }

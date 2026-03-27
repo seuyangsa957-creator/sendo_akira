@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SYK — Street Estimates</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg:#ffffff; --bg-card:#f9fafb; --text:#111111; --text-muted:#6b7280;
+      --accent:#2563eb; --border:#e5e7eb; --grid:#e5e7eb; --kpi-bg:#f3f4f6;
+      --bull:rgba(22,163,74,.55); --bull-b:rgba(22,163,74,.85);
+      --mid:rgba(37,99,235,.50); --mid-b:rgba(37,99,235,.82);
+      --bear:rgba(245,158,11,.55); --bear-b:rgba(245,158,11,.85);
+    }
+    html.dark {
+      --bg:#0f0f0f; --bg-card:#171717; --text:#e5e5e5; --text-muted:#9ca3af;
+      --accent:#60a5fa; --border:#262626; --grid:#1f1f1f; --kpi-bg:#1a1a1a;
+      --bull:rgba(52,211,153,.5); --bull-b:rgba(52,211,153,.85);
+      --mid:rgba(96,165,250,.48); --mid-b:rgba(96,165,250,.82);
+      --bear:rgba(251,191,36,.45); --bear-b:rgba(251,191,36,.82);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;padding:24px 20px 20px;transition:background .15s,color .15s}
+    .header{margin-bottom:16px}
+    .ticker-row{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:3px}
+    .title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:2px}
+    .subtitle{font-size:11px;color:var(--text-muted)}
+    .kpi-row{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+    .kpi{background:var(--kpi-bg);border:1px solid var(--border);border-radius:7px;padding:10px 14px;flex:1;min-width:90px}
+    .kpi-label{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px}
+    .kpi-value{font-size:17px;font-weight:700;color:var(--text);line-height:1}
+    .kpi-sub{font-size:10px;color:var(--text-muted);margin-top:2px}
+    .kpi-value.pos{color:#16a34a} html.dark .kpi-value.pos{color:#34d399}
+    .kpi-value.loading{color:var(--text-muted);font-size:13px}
+    .chart-label{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px}
+    canvas{width:100%!important}
+    .legend{display:flex;gap:14px;margin-top:10px;flex-wrap:wrap}
+    .legend-item{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--text-muted)}
+    .swatch{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+    .tensions{margin-top:18px;border-top:1px solid var(--border);padding-top:14px}
+    .tension-title{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px}
+    .tension{margin-bottom:12px;font-size:11.5px;line-height:1.6}
+    .tension .label{font-weight:700;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:.1em .45em;border-radius:3px;margin-right:6px}
+    .label.bull{background:rgba(22,163,74,.12);color:#16a34a;border:1px solid rgba(22,163,74,.25)}
+    .label.bear{background:rgba(220,38,38,.1);color:#dc2626;border:1px solid rgba(220,38,38,.2)}
+    html.dark .label.bull{background:rgba(52,211,153,.1);color:#34d399}
+    html.dark .label.bear{background:rgba(248,113,113,.1);color:#f87171;border-color:rgba(248,113,113,.2)}
+    .tension .text{color:var(--text-muted)}
+    .note{font-size:10px;color:var(--text-muted);margin-top:14px;padding-top:12px;border-top:1px solid var(--border);line-height:1.5}
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="ticker-row">NYSE: SYK &nbsp;·&nbsp; Sell-Side Coverage</div>
+    <div class="title">Stryker — Street Price Targets</div>
+    <div class="subtitle">15 reports · Dec 2025 – Jan 2026 · All firms rated Buy / Outperform / Overweight</div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-label">Street High</div><div class="kpi-value">$465</div><div class="kpi-sub">Jefferies</div></div>
+    <div class="kpi"><div class="kpi-label">Consensus</div><div class="kpi-value pos">~$421</div><div class="kpi-sub">avg of 11 reports</div></div>
+    <div class="kpi"><div class="kpi-label">Street Low</div><div class="kpi-value">$386</div><div class="kpi-sub">UBS</div></div>
+    <div class="kpi"><div class="kpi-label">Current Price</div><div class="kpi-value loading" id="kpi-price">~$330</div><div class="kpi-sub" id="kpi-upside">~+27% to consensus</div></div>
+  </div>
+
+  <div class="chart-label">Price Target by Firm (USD) — sorted high to low</div>
+  <canvas id="ptChart" height="300"></canvas>
+
+  <div class="legend">
+    <div class="legend-item"><div class="swatch" style="background:var(--bull);border:1.5px solid var(--bull-b)"></div>$440+ (high conviction)</div>
+    <div class="legend-item"><div class="swatch" style="background:var(--mid);border:1.5px solid var(--mid-b)"></div>$400–$439</div>
+    <div class="legend-item"><div class="swatch" style="background:var(--bear);border:1.5px solid var(--bear-b)"></div>Below $400 (cautious)</div>
+    <div class="legend-item"><div class="swatch" style="border:1.5px dashed #9ca3af;background:transparent"></div>Current price</div>
+  </div>
+
+  <div class="tensions">
+    <div class="tension-title">Main Street Tensions</div>
+    <div class="tension"><span class="label bull">Bull</span><span class="text">2027E-anchored at 27–28x P/E: the Mako flywheel, MedSurg pricing power, and ASC expansion all compound into 2027 — the full upside is not visible in 2026E numbers.</span></div>
+    <div class="tension"><span class="label bear">Bear</span><span class="text">2026E-anchored at 23–26x or rolling NTM: paying 27–28x assumes execution risk they don't want to carry, especially post-cyberattack and with tariff headwinds of $50–150M unquantified.</span></div>
+    <div class="tension"><span class="label bull">Bull</span><span class="text">Multiple expansion available: SYK has historically traded at 30x+ NTM P/E; today at ~22x it is well below its own historical range. Any re-rating toward 25–27x gets to $400+ even on flat estimates.</span></div>
+    <div class="tension"><span class="label bear">Bear</span><span class="text">Multiple contraction risk: UBS explicitly reduced their multiple by ~10% citing peer group compression — MedTech multiples are under pressure from macro/tariff uncertainty sector-wide.</span></div>
+  </div>
+
+  <div class="note"><strong>Valuation basis:</strong> Bulls anchor to <strong>2027E EPS (24–28x P/E)</strong> · Bears use <strong>2026E or rolling NTM</strong> · Morgan Stanley outlier: <strong>2025E EBITDA 26x</strong></div>
+
+  <script>
+    (function(){try{const s=localStorage.getItem('theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches;if(s==='dark'||(!s&&p))document.documentElement.classList.add('dark');}catch(e){}})();
+
+    const firms=['Jefferies','Morgan Stanley','Barclays','Citizens','RBC','BTIG','Evercore ISI','Truist','TD Cowen','UBS'];
+    const pts=[465,445,443,440,435,412,400,395,387,386];
+    const ratings=['Buy','Overweight','Overweight','Outperform','Outperform','Buy','Outperform','Buy','Outperform','Buy'];
+
+    async function fetchPrice(){
+      try{
+        const apiUrl='https://query1.finance.yahoo.com/v8/finance/chart/SYK?interval=1d&range=5d';
+        const proxy='https://api.allorigins.win/raw?url='+encodeURIComponent(apiUrl);
+        const ctrl=new AbortController();const timer=setTimeout(()=>ctrl.abort(),5000);
+        const res=await fetch(proxy,{signal:ctrl.signal});clearTimeout(timer);
+        if(!res.ok)throw new Error();
+        return res.json().then(j=>j.chart.result[0].meta.regularMarketPrice);
+      }catch(e){return 330.50;}
+    }
+
+    const refLinePlugin={id:'refLine',afterDraw(chart,_,opts){const{ctx,chartArea,scales}=chart;const xVal=opts.value;if(xVal==null||!scales.x)return;const xPx=scales.x.getPixelForValue(xVal);ctx.save();ctx.beginPath();ctx.moveTo(xPx,chartArea.top);ctx.lineTo(xPx,chartArea.bottom);ctx.strokeStyle=opts.color||'#9ca3af';ctx.lineWidth=1.5;ctx.setLineDash([4,4]);ctx.stroke();ctx.font='600 9px -apple-system,sans-serif';ctx.fillStyle=opts.color||'#9ca3af';ctx.fillText(opts.label||'',xPx+4,chartArea.top+11);ctx.restore();}};
+    Chart.register(refLinePlugin);
+
+    async function buildChart(){
+      const currentPrice=await fetchPrice();
+      document.getElementById('kpi-price').textContent=`$${currentPrice.toFixed(2)}`;
+      document.getElementById('kpi-price').className='kpi-value';
+      document.getElementById('kpi-upside').textContent=`~+${((421-currentPrice)/currentPrice*100).toFixed(0)}% to consensus`;
+      const isDark=document.documentElement.classList.contains('dark');
+      const s=getComputedStyle(document.documentElement);const cv=n=>s.getPropertyValue(n).trim();
+      Chart.defaults.color=cv('--text-muted');
+      const tooltip={backgroundColor:isDark?'#1a1a1a':'#fff',borderColor:cv('--border'),borderWidth:1,titleColor:cv('--text-muted'),bodyColor:cv('--text'),padding:10};
+      new Chart(document.getElementById('ptChart').getContext('2d'),{type:'bar',data:{labels:firms,datasets:[{data:pts,backgroundColor:pts.map(v=>v>=440?cv('--bull'):v>=400?cv('--mid'):cv('--bear')),borderColor:pts.map(v=>v>=440?cv('--bull-b'):v>=400?cv('--mid-b'):cv('--bear-b')),borderWidth:1.5,borderRadius:4}]},options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false},tooltip:{...tooltip,callbacks:{title:c=>`${c[0].label} — ${ratings[c[0].dataIndex]}`,label:c=>`  Price Target: $${c.parsed.x}`,afterLabel:c=>`  Upside: +${((c.parsed.x-currentPrice)/currentPrice*100).toFixed(1)}% vs current`}},refLine:{value:currentPrice,color:cv('--text-muted'),label:`Current ~$${currentPrice.toFixed(0)}`}},scales:{x:{grid:{color:cv('--grid')},ticks:{color:cv('--text-muted'),font:{size:10},callback:v=>`$${v}`},min:340,max:490,title:{display:true,text:'Price Target (USD)',color:cv('--text-muted'),font:{size:9}}},y:{grid:{color:cv('--grid')},ticks:{color:cv('--text-muted'),font:{size:10.5}}}}}});
+    }
+    buildChart();
+  </script>
+</body>
+</html>
