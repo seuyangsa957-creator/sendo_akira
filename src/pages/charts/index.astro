@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const charts = await getCollection('charts');
+charts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+
+<BaseLayout title="Charts" description="Interactive charts and visualizations">
+  <h1>Charts</h1>
+  <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem; margin-bottom: 2.5rem;">
+    {charts.length} {charts.length === 1 ? 'chart' : 'charts'}
+  </p>
+
+  {charts.length === 0 ? (
+    <p class="empty">
+      No charts yet. Add an HTML file to <code>public/charts/</code> and a
+      matching <code>.md</code> entry to <code>src/content/charts/</code>.
+    </p>
+  ) : (
+    <ul class="card-list">
+      {charts.map(chart => (
+        <li class="card">
+          <a href={`/charts/${chart.id}`} class="card-title">{chart.data.title}</a>
+          <span class="card-meta">{fmt(chart.data.date)}</span>
+          {chart.data.description && (
+            <span class="card-desc">{chart.data.description}</span>
+          )}
+        </li>
+      ))}
+    </ul>
+  )}
+</BaseLayout>

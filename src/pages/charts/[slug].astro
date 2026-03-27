@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const charts = await getCollection('charts');
+  return charts.map(chart => ({
+    params: { slug: chart.id },
+    props: { chart },
+  }));
+}
+
+const { chart } = Astro.props;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title={chart.data.title} description={chart.data.description}>
+  <h1>{chart.data.title}</h1>
+  <div class="page-meta">
+    <span>{fmt(chart.data.date)}</span>
+  </div>
+
+  {chart.data.description && (
+    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">
+      {chart.data.description}
+    </p>
+  )}
+
+  <iframe
+    src={`/charts/${chart.data.file}`}
+    class="chart-frame"
+    title={chart.data.title}
+    loading="lazy"
+  ></iframe>
+
+  <div style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: center;">
+    <a href="/charts" style="color: var(--text-muted); font-size: 0.875rem;">← All charts</a>
+    <a
+      href={`/charts/${chart.data.file}`}
+      target="_blank"
+      rel="noopener"
+      style="color: var(--text-muted); font-size: 0.875rem;"
+    >
+      Open full screen ↗
+    </a>
+  </div>
+</BaseLayout>

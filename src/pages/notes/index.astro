@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const notes = await getCollection('notes');
+notes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+
+<BaseLayout title="Notes" description="All study notes">
+  <h1>Notes</h1>
+  <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem; margin-bottom: 2.5rem;">
+    {notes.length} {notes.length === 1 ? 'note' : 'notes'}
+  </p>
+
+  {notes.length === 0 ? (
+    <p class="empty">No notes yet. Add a <code>.md</code> file to <code>src/content/notes/</code>.</p>
+  ) : (
+    <ul class="card-list">
+      {notes.map(note => (
+        <li class="card">
+          <a href={`/notes/${note.id}`} class="card-title">{note.data.title}</a>
+          <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+            <span class="card-meta">{fmt(note.data.date)}</span>
+            {note.data.tags?.map(tag => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+          {note.data.description && (
+            <span class="card-desc">{note.data.description}</span>
+          )}
+        </li>
+      ))}
+    </ul>
+  )}
+</BaseLayout>
