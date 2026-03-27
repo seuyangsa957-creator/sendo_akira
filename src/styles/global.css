@@ -198,6 +198,22 @@ h2 {
   color: var(--text-muted);
 }
 
+/* ── Ticker badge (company cards) ── */
+.ticker-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 3px;
+  padding: 0.1em 0.45em;
+  margin-right: 0.4rem;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
 /* ── Empty state ── */
 .empty {
   color: var(--text-muted);

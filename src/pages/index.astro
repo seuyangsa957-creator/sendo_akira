@@ -2,9 +2,14 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const allNotes = await getCollection('notes');
+const allNotes     = await getCollection('notes');
+const allCompanies = await getCollection('companies');
 
 const recentNotes = allNotes
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 5);
+
+const recentCompanies = allCompanies
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 5);
 
@@ -16,6 +21,25 @@ const fmt = (d: Date) =>
   <p style="color: var(--text-muted); margin-bottom: 3rem; font-size: 0.95rem;">
     let there be light
   </p>
+
+  <h2>Companies</h2>
+  {recentCompanies.length === 0 ? (
+    <p class="empty">No companies yet.</p>
+  ) : (
+    <ul class="card-list">
+      {recentCompanies.map(co => (
+        <li class="card">
+          <a href={`/companies/${co.id}`} class="card-title">
+            <span class="ticker-badge">{co.data.ticker}</span>{co.data.title}
+          </a>
+          <span class="card-meta">{co.data.exchange} · {fmt(co.data.date)}</span>
+          {co.data.description && (
+            <span class="card-desc">{co.data.description}</span>
+          )}
+        </li>
+      ))}
+    </ul>
+  )}
 
   <h2>Recent Notes</h2>
   {recentNotes.length === 0 ? (

@@ -21,4 +21,17 @@ const charts = defineCollection({
   }),
 });
 
-export const collections = { notes, charts };
+const companies = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/companies' }),
+  schema: z.object({
+    title: z.string(),
+    ticker: z.string(),
+    exchange: z.string(),
+    sector: z.string().optional(),
+    date: z.coerce.date(),
+    description: z.string().optional(),
+    chartFile: z.string().optional(),
+  }),
+});
+
+export const collections = { notes, charts, companies };

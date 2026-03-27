@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const companies = await getCollection('companies');
+  return companies.map(co => ({
+    params: { slug: co.id },
+    props: { co },
+  }));
+}
+
+const { co } = Astro.props;
+const { Content } = await render(co);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title={`${co.data.ticker} — ${co.data.title}`} description={co.data.description}>
+  <div class="company-header">
+    <div class="ticker-line">
+      <span class="ticker">{co.data.ticker}</span>
+      <span class="exchange">{co.data.exchange}</span>
+    </div>
+    <h1>{co.data.title}</h1>
+    <div class="page-meta">
+      {co.data.sector && <span>{co.data.sector}</span>}
+      <span>Updated {fmt(co.data.date)}</span>
+    </div>
+  </div>
+
+  {co.data.chartFile && (
+    <div class="chart-section">
+      <p class="section-label">Revenue &amp; EBITDA Margin</p>
+      <iframe
+        src={`/charts/${co.data.chartFile}`}
+        class="chart-frame-tall"
+        title={`${co.data.ticker} Revenue & EBITDA`}
+        loading="lazy"
+        scrolling="no"
+      ></iframe>
+      <a
+        href={`/charts/${co.data.chartFile}`}
+        target="_blank"
+        rel="noopener"
+        class="open-fullscreen"
+      >Open full screen ↗</a>
+    </div>
+  )}
+
+  <div class="prose">
+    <Content />
+  </div>
+
+  <div class="back-link">
+    <a href="/companies">← All companies</a>
+  </div>
+</BaseLayout>
+
+<style>
+  .company-header {
+    margin-bottom: 2rem;
+  }
+
+  .ticker-line {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .ticker {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    border-radius: 4px;
+    padding: 0.15em 0.55em;
+  }
+
+  .exchange {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+
+  .chart-section {
+    margin: 2rem 0 2.5rem;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .chart-frame-tall {
+    width: 100%;
+    height: 560px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg-secondary);
+    display: block;
+  }
+
+  .open-fullscreen {
+    display: block;
+    text-align: right;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+
+  .open-fullscreen:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .back-link {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .back-link a {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+</style>
