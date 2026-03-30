@@ -18,8 +18,6 @@ The second reason is asset class focus. High-yield (HY) bonds — debt issued by
 
 Buying HY bonds is an act of calibrated risk-taking with explicit downside analysis. Understanding bankruptcy mechanics — the priority waterfall, DIP financing, the fulcrum security, creditor rights — is table stakes for anyone analyzing high-yield credit seriously. The cases where those mechanics actually played out are the best classroom available.
 
----
-
 ## Why did Rite Aid go bankrupt?
 
 Three forces converged simultaneously. Any one alone was survivable. Together, they were not.
