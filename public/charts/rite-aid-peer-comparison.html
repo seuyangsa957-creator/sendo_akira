@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rite Aid vs. CVS vs. Walgreens — Peer Comparison</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-card: #f9fafb;
+      --text: #111111;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #2563eb;
+      --grid: #e5e7eb;
+      --kpi-bg: #f3f4f6;
+      --rad-fill:   rgba(220,38,38,0.55);
+      --rad-border: rgba(220,38,38,0.9);
+      --rad-solid:  #dc2626;
+      --cvs-fill:   rgba(37,99,235,0.55);
+      --cvs-border: rgba(37,99,235,0.9);
+      --cvs-solid:  #2563eb;
+      --wba-fill:   rgba(22,163,74,0.55);
+      --wba-border: rgba(22,163,74,0.9);
+      --wba-solid:  #16a34a;
+    }
+    html.dark {
+      --bg: #0f0f0f;
+      --bg-card: #171717;
+      --text: #e5e5e5;
+      --text-muted: #9ca3af;
+      --border: #262626;
+      --accent: #60a5fa;
+      --grid: #1f1f1f;
+      --kpi-bg: #1a1a1a;
+      --rad-fill:   rgba(248,113,113,0.5);
+      --rad-border: rgba(248,113,113,0.9);
+      --rad-solid:  #f87171;
+      --cvs-fill:   rgba(96,165,250,0.5);
+      --cvs-border: rgba(96,165,250,0.9);
+      --cvs-solid:  #60a5fa;
+      --wba-fill:   rgba(52,211,153,0.5);
+      --wba-border: rgba(52,211,153,0.9);
+      --wba-solid:  #34d399;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      padding: 24px 20px 20px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .header { margin-bottom: 18px; }
+    .ticker-row {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 3px;
+    }
+    .title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .subtitle { font-size: 11px; color: var(--text-muted); }
+    .kpi-row { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .kpi {
+      background: var(--kpi-bg); border: 1px solid var(--border);
+      border-radius: 7px; padding: 10px 14px; flex: 1; min-width: 110px;
+    }
+    .kpi-label {
+      font-size: 9px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;
+    }
+    .kpi-value { font-size: 17px; font-weight: 700; color: var(--text); line-height: 1; }
+    .kpi-value.bad  { color: var(--rad-solid); }
+    .kpi-value.good { color: var(--cvs-solid); }
+    .kpi-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+    .chart-wrap { position: relative; margin-bottom: 14px; }
+    .chart-label {
+      font-size: 9px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;
+    }
+    canvas { width: 100% !important; }
+    .legend { display: flex; gap: 18px; margin-top: 10px; flex-wrap: wrap; }
+    .legend-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; color: var(--text-muted);
+    }
+    .legend-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+    .note {
+      font-size: 10px; color: var(--text-muted); margin-top: 14px;
+      padding-top: 12px; border-top: 1px solid var(--border); line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="ticker-row">Distressed Case Study &nbsp;·&nbsp; Retail Pharmacy &nbsp;·&nbsp; FY2021–FY2023</div>
+    <div class="title">Rite Aid vs. CVS vs. Walgreens — Peer Financial Comparison</div>
+    <div class="subtitle">EBIT margin &nbsp;·&nbsp; Revenue indexed to 100 (FY2021) &nbsp;·&nbsp; Hover for details</div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">Rite Aid EBIT Margin</div>
+      <div class="kpi-value bad">~0%</div>
+      <div class="kpi-sub">FY2023 ($10.5M on $24.1B rev)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">CVS EBIT Margin</div>
+      <div class="kpi-value good">3.9%</div>
+      <div class="kpi-sub">FY2023 ($14.1B on $356.6B rev)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Scale Gap (Revenue)</div>
+      <div class="kpi-value">~1/15×</div>
+      <div class="kpi-sub">Rite Aid vs. CVS, FY2023</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Rite Aid Total Assets</div>
+      <div class="kpi-value bad">−19%</div>
+      <div class="kpi-sub">$9.3B → $7.5B (FY2021→2023)</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-label">EBIT Margin (%) by Fiscal Year</div>
+    <canvas id="marginChart" height="190"></canvas>
+  </div>
+
+  <div class="chart-wrap" style="margin-top:18px;">
+    <div class="chart-label">Revenue Growth — Indexed to 100 (FY2021 = 100)</div>
+    <canvas id="revenueChart" height="150"></canvas>
+    <div class="legend" style="margin-top:12px;">
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:var(--rad-fill);border:1.5px solid var(--rad-border);"></div>
+        Rite Aid (RAD)
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:var(--cvs-fill);border:1.5px solid var(--cvs-border);"></div>
+        CVS Health (CVS)
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:var(--wba-fill);border:1.5px solid var(--wba-border);"></div>
+        Walgreens (WBA)
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Notes:</strong> EBIT = Operating Income (GAAP). Fiscal year-ends differ: Rite Aid (Feb/Mar), CVS (Dec),
+    Walgreens (Aug) — labeled FY2021–FY2023 for comparability. Revenue indexed: FY2021 = 100 for each company.
+    Source: S&P Capital IQ.
+  </div>
+
+  <script>
+    (function () {
+      try {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'dark' || (!stored && prefersDark)) document.documentElement.classList.add('dark');
+      } catch (e) {}
+    })();
+
+    const years = ['FY2021', 'FY2022', 'FY2023'];
+    const marginRAD = [0.55, 0.44, 0.04];
+    const marginCVS = [4.87, 4.89, 3.95];
+    const marginWBA = [2.95, 2.31, 0.93];
+    const revRAD = [100, 102.2, 100.2];
+    const revCVS = [100, 110.6, 122.6];
+    const revWBA = [100, 100.1, 105.0];
+
+    const s  = getComputedStyle(document.documentElement);
+    const cv = n => s.getPropertyValue(n).trim();
+
+    function buildCharts() {
+      const isDark    = document.documentElement.classList.contains('dark');
+      const gridColor = cv('--grid');
+      const textMuted = cv('--text-muted');
+
+      Chart.defaults.color = textMuted;
+
+      const tooltipBase = {
+        backgroundColor: isDark ? '#1a1a1a' : '#ffffff',
+        borderColor: cv('--border'), borderWidth: 1,
+        titleColor: textMuted, bodyColor: cv('--text'), padding: 10,
+      };
+
+      const axisBase = {
+        grid: { color: gridColor },
+        ticks: { color: textMuted, font: { size: 10 } },
+      };
+
+      // Chart 1 — EBIT Margin grouped bars
+      new Chart(document.getElementById('marginChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: years,
+          datasets: [
+            { label: 'Rite Aid',   data: marginRAD, backgroundColor: cv('--rad-fill'), borderColor: cv('--rad-border'), borderWidth: 1.5, borderRadius: 3 },
+            { label: 'CVS Health', data: marginCVS, backgroundColor: cv('--cvs-fill'), borderColor: cv('--cvs-border'), borderWidth: 1.5, borderRadius: 3 },
+            { label: 'Walgreens',  data: marginWBA, backgroundColor: cv('--wba-fill'), borderColor: cv('--wba-border'), borderWidth: 1.5, borderRadius: 3 },
+          ]
+        },
+        options: {
+          responsive: true,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: { ...tooltipBase, callbacks: {
+              title: c => c[0].label,
+              label: c => `  ${c.dataset.label}: ${c.parsed.y.toFixed(2)}%`,
+            }}
+          },
+          scales: {
+            x: { ...axisBase },
+            y: { ...axisBase, min: 0, max: 6,
+              title: { display: true, text: 'EBIT Margin (%)', color: textMuted, font: { size: 9 } },
+              ticks: { ...axisBase.ticks, callback: v => `${v.toFixed(1)}%` },
+            }
+          }
+        }
+      });
+
+      // Chart 2 — Revenue indexed lines
+      const lineBase = {
+        borderWidth: 2.5, pointRadius: 4, pointHoverRadius: 6,
+        pointBorderWidth: 2, pointBorderColor: cv('--bg'), tension: 0.3, fill: false,
+      };
+
+      new Chart(document.getElementById('revenueChart').getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: years,
+          datasets: [
+            { label: 'Rite Aid',   data: revRAD, borderColor: cv('--rad-solid'), backgroundColor: cv('--rad-fill'), pointBackgroundColor: cv('--rad-solid'), ...lineBase },
+            { label: 'CVS Health', data: revCVS, borderColor: cv('--cvs-solid'), backgroundColor: cv('--cvs-fill'), pointBackgroundColor: cv('--cvs-solid'), ...lineBase },
+            { label: 'Walgreens',  data: revWBA, borderColor: cv('--wba-solid'), backgroundColor: cv('--wba-fill'), pointBackgroundColor: cv('--wba-solid'), ...lineBase },
+          ]
+        },
+        options: {
+          responsive: true,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: { ...tooltipBase, callbacks: {
+              title: c => c[0].label,
+              label: c => `  ${c.dataset.label}: ${c.parsed.y.toFixed(1)}`,
+            }}
+          },
+          scales: {
+            x: { ...axisBase },
+            y: { ...axisBase, min: 95, max: 130,
+              title: { display: true, text: 'Index (FY2021 = 100)', color: textMuted, font: { size: 9 } },
+            }
+          }
+        }
+      });
+    }
+
+    buildCharts();
+  </script>
+</body>
+</html>
