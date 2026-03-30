@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rite Aid — Chapter 11 Creditor Waterfall</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-card: #f9fafb;
+      --text: #111111;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #2563eb;
+      --grid: #e5e7eb;
+      --kpi-bg: #f3f4f6;
+
+      --c-abl:    rgba(22,163,74,0.65);
+      --c-abl-b:  rgba(22,163,74,0.95);
+      --c-filo:   rgba(52,211,153,0.65);
+      --c-filo-b: rgba(52,211,153,0.95);
+      --c-2l:     rgba(234,179,8,0.70);
+      --c-2l-b:   rgba(234,179,8,0.98);
+      --c-unsc:   rgba(249,115,22,0.65);
+      --c-unsc-b: rgba(249,115,22,0.95);
+      --c-guc:    rgba(220,38,38,0.60);
+      --c-guc-b:  rgba(220,38,38,0.95);
+      --c-eq:     rgba(100,116,139,0.50);
+      --c-eq-b:   rgba(100,116,139,0.85);
+
+      --solid-green:  #16a34a;
+      --solid-amber:  #d97706;
+      --solid-red:    #dc2626;
+      --solid-gray:   #64748b;
+    }
+
+    html.dark {
+      --bg: #0f0f0f;
+      --bg-card: #171717;
+      --text: #e5e5e5;
+      --text-muted: #9ca3af;
+      --border: #262626;
+      --accent: #60a5fa;
+      --grid: #1f1f1f;
+      --kpi-bg: #1a1a1a;
+
+      --c-abl:    rgba(52,211,153,0.55);
+      --c-abl-b:  rgba(52,211,153,0.90);
+      --c-filo:   rgba(110,231,183,0.55);
+      --c-filo-b: rgba(110,231,183,0.90);
+      --c-2l:     rgba(251,191,36,0.65);
+      --c-2l-b:   rgba(251,191,36,0.95);
+      --c-unsc:   rgba(251,146,60,0.60);
+      --c-unsc-b: rgba(251,146,60,0.90);
+      --c-guc:    rgba(248,113,113,0.55);
+      --c-guc-b:  rgba(248,113,113,0.90);
+      --c-eq:     rgba(148,163,184,0.40);
+      --c-eq-b:   rgba(148,163,184,0.75);
+
+      --solid-green:  #34d399;
+      --solid-amber:  #fbbf24;
+      --solid-red:    #f87171;
+      --solid-gray:   #94a3b8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      padding: 24px 20px 20px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .header { margin-bottom: 18px; }
+
+    .ticker-row {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 3px;
+    }
+
+    .title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .subtitle { font-size: 11px; color: var(--text-muted); }
+
+    .kpi-row { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    .kpi {
+      background: var(--kpi-bg); border: 1px solid var(--border);
+      border-radius: 7px; padding: 10px 14px; flex: 1; min-width: 110px;
+    }
+    .kpi-label {
+      font-size: 9px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;
+    }
+    .kpi-value { font-size: 17px; font-weight: 700; color: var(--text); line-height: 1; }
+    .kpi-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+
+    .chart-wrap { position: relative; margin-bottom: 18px; }
+
+    .chart-label {
+      font-size: 9px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;
+    }
+
+    canvas { width: 100% !important; }
+
+    .legend { display: flex; gap: 14px; margin-top: 10px; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--text-muted); }
+    .legend-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 18px 0; }
+
+    .note {
+      font-size: 10px; color: var(--text-muted);
+      padding-top: 12px; border-top: 1px solid var(--border);
+      line-height: 1.6; margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="ticker-row">First Bankruptcy &nbsp;·&nbsp; Oct 2023 – Aug 2024 &nbsp;·&nbsp; D. New Jersey</div>
+    <div class="title">Rite Aid — Chapter 11 Creditor Waterfall</div>
+    <div class="subtitle">Pre-petition capital structure &nbsp;·&nbsp; Recovery by class &nbsp;·&nbsp; Claims in USD millions</div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">Pre-Petition Debt</div>
+      <div class="kpi-value">$4.0B</div>
+      <div class="kpi-sub">Funded debt at filing</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">DIP Financing</div>
+      <div class="kpi-value">$3.45B</div>
+      <div class="kpi-sub">Led by Bank of America</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Fulcrum Security</div>
+      <div class="kpi-value">2L Notes</div>
+      <div class="kpi-sub">$1.17B → 90% NewCo equity</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Creditor Vote</div>
+      <div class="kpi-value">99.73%</div>
+      <div class="kpi-sub">Plan acceptance rate</div>
+    </div>
+  </div>
+
+  <!-- Chart 1: Pre-petition capital structure tower -->
+  <div class="chart-wrap">
+    <div class="chart-label">Pre-Petition Capital Structure — Claims Stack ($M)</div>
+    <canvas id="stackChart" height="80"></canvas>
+    <div class="legend" style="margin-top:10px;">
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:var(--c-abl); border:1.5px solid var(--c-abl-b);"></div>
+        ABL Revolver ($2,220M)
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:var(--c-filo); border:1.5px solid var(--c-filo-b);"></div>
+        FILO Term Loan ($400M)
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:var(--c-2l); border:1.5px solid var(--c-2l-b);"></div>
+        Sr. 2L Notes — Fulcrum ($1,170M)
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:var(--c-unsc); border:1.5px solid var(--c-unsc-b);"></div>
+        Unsecured Notes ($188M)
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:var(--c-guc); border:1.5px solid var(--c-guc-b);"></div>
+        GUC — DOJ + McKesson + Trade (~$1,300M)
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- Chart 2: Recovery by class -->
+  <div class="chart-wrap">
+    <div class="chart-label">Plan Recovery by Creditor Class</div>
+    <canvas id="recoveryChart" height="210"></canvas>
+    <div class="legend" style="margin-top:10px;">
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:var(--c-abl); border:1.5px solid var(--c-abl-b);"></div>
+        Cash (exit ABL)
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:var(--c-2l); border:1.5px solid var(--c-2l-b);"></div>
+        Equity in NewCo
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:var(--c-eq); border:1.5px solid var(--c-eq-b);"></div>
+        Wiped out / zero
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Notes:</strong>
+    Pre-petition: ABL $2,220M + FILO $400M rolled into $3.45B DIP (led by Bank of America); new DIP term $200M.
+    Sr. 2L Notes: $320M (7.5% due 2025) + $850M (8.0% due 2026).
+    Unsecured Notes: $186M (7.7% due 2027) + $2M (6.875% due 2028).
+    GUC includes $401.8M DOJ/FCA settlement; McKesson and trade creditor claims are estimated.
+    Est. enterprise value at confirmation (~$3.2B) is approximate — not publicly disclosed.
+    GUC equity trust recovery estimated at ~1–3% of face value.
+    Source: S&P Capital IQ, court filings, Kroll Restructuring Administration.
+  </div>
+
+  <script>
+    // ── Theme ───────────────────────────────────────────────────────────
+    (function () {
+      try {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'dark' || (!stored && prefersDark)) document.documentElement.classList.add('dark');
+      } catch (e) {}
+    })();
+
+    const s  = getComputedStyle(document.documentElement);
+    const cv = n => s.getPropertyValue(n).trim();
+
+    function buildCharts() {
+      const isDark    = document.documentElement.classList.contains('dark');
+      const gridColor = cv('--grid');
+      const textMuted = cv('--text-muted');
+      const accent    = cv('--accent');
+      const bgColor   = cv('--bg');
+
+      Chart.defaults.color = textMuted;
+
+      const tooltipBase = {
+        backgroundColor: isDark ? '#1a1a1a' : '#ffffff',
+        borderColor: cv('--border'), borderWidth: 1,
+        titleColor: textMuted, bodyColor: cv('--text'), padding: 10,
+      };
+
+      const axisBase = {
+        grid: { color: gridColor },
+        ticks: { color: textMuted, font: { size: 10 } },
+      };
+
+      // ── EV line plugin ─────────────────────────────────────────────────
+      const evLinePlugin = {
+        id: 'evLine',
+        afterDraw(chart) {
+          const { ctx, scales: { x, y } } = chart;
+          const evX = x.getPixelForValue(3200);
+          ctx.save();
+          ctx.beginPath();
+          ctx.strokeStyle = accent;
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([5, 3]);
+          ctx.moveTo(evX, y.top);
+          ctx.lineTo(evX, y.bottom);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.fillStyle = accent;
+          ctx.font = `600 9px -apple-system, sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.fillText('Est. EV ~$3.2B', evX, y.top - 6);
+          ctx.restore();
+        }
+      };
+
+      // ── Chart 1: Capital structure floating bar ────────────────────────
+      new Chart(document.getElementById('stackChart').getContext('2d'), {
+        type: 'bar',
+        plugins: [evLinePlugin],
+        data: {
+          labels: ['Pre-Petition Claims'],
+          datasets: [
+            { label: 'ABL Revolver',        data: [[0, 2220]],       backgroundColor: cv('--c-abl'),  borderColor: cv('--c-abl-b'),  borderWidth: 1.5, borderRadius: 3 },
+            { label: 'FILO Term Loan',       data: [[2220, 2620]],    backgroundColor: cv('--c-filo'), borderColor: cv('--c-filo-b'), borderWidth: 1.5, borderRadius: 3 },
+            { label: 'Sr. 2L Notes (Fulcrum)', data: [[2620, 3790]],  backgroundColor: cv('--c-2l'),   borderColor: cv('--c-2l-b'),   borderWidth: 1.5, borderRadius: 3 },
+            { label: 'Unsecured Notes',      data: [[3790, 3978]],    backgroundColor: cv('--c-unsc'), borderColor: cv('--c-unsc-b'), borderWidth: 1.5, borderRadius: 3 },
+            { label: 'GUC',                  data: [[3978, 5278]],    backgroundColor: cv('--c-guc'),  borderColor: cv('--c-guc-b'),  borderWidth: 1.5, borderRadius: 3 },
+          ]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              ...tooltipBase,
+              callbacks: {
+                title: () => 'Pre-Petition Capital Structure',
+                label: c => {
+                  const [start, end] = c.raw;
+                  return `  ${c.dataset.label}: $${(end - start).toLocaleString()}M`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              ...axisBase,
+              min: 0, max: 5500,
+              title: { display: true, text: 'Claims ($M)', color: textMuted, font: { size: 9 } },
+              ticks: { ...axisBase.ticks, callback: v => `$${(v/1000).toFixed(0)}B` },
+            },
+            y: {
+              grid: { display: false },
+              ticks: { color: textMuted, font: { size: 10 } },
+            }
+          },
+          layout: { padding: { top: 22 } }
+        }
+      });
+
+      // ── Chart 2: Recovery by class ────────────────────────────────────
+      const classes = [
+        'ABL + FILO\n($2,620M)',
+        'Sr. 2L Notes\n($1,170M) ← Fulcrum',
+        'Unsecured Notes\n($188M)',
+        'GUC Claims\n(~$1,300M est.)',
+        'Pre-Petition Equity',
+      ];
+
+      const cashRecovery   = [100,  0,  0,  0, 0];
+      const equityRecovery = [  0, 100, 2,  2, 0];
+      const zeroRecovery   = [  0,   0, 98, 98, 100];
+
+      new Chart(document.getElementById('recoveryChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: classes,
+          datasets: [
+            {
+              label: 'Cash recovery',
+              data: cashRecovery,
+              backgroundColor: cv('--c-abl'),
+              borderColor: cv('--c-abl-b'),
+              borderWidth: 1.5,
+              borderRadius: 3,
+              stack: 'recovery',
+            },
+            {
+              label: 'Equity recovery',
+              data: equityRecovery,
+              backgroundColor: cv('--c-2l'),
+              borderColor: cv('--c-2l-b'),
+              borderWidth: 1.5,
+              borderRadius: 3,
+              stack: 'recovery',
+            },
+            {
+              label: 'Zero / wiped out',
+              data: zeroRecovery,
+              backgroundColor: cv('--c-eq'),
+              borderColor: cv('--c-eq-b'),
+              borderWidth: 1,
+              borderRadius: 3,
+              stack: 'recovery',
+            },
+          ]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          interaction: { mode: 'y', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              ...tooltipBase,
+              callbacks: {
+                title: c => c[0].label.replace('\n', ' '),
+                label: c => {
+                  if (c.parsed.x === 0) return null;
+                  const type = c.dataset.label;
+                  return `  ${type}: ${c.parsed.x}%`;
+                },
+                afterBody: c => {
+                  const i = c[0].dataIndex;
+                  const notes = [
+                    'Rolled into DIP → repaid via $2.5B exit ABL',
+                    '90% of NewCo equity + take-back debt',
+                    '~2% via GUC Equity Trust (est.)',
+                    '~2% via GUC Equity Trust (est.)',
+                    'Old equity canceled at plan confirmation',
+                  ];
+                  return [`\n  ${notes[i]}`];
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              ...axisBase,
+              stacked: true,
+              min: 0, max: 100,
+              ticks: { ...axisBase.ticks, callback: v => `${v}%` },
+              title: { display: true, text: 'Recovery (%)', color: textMuted, font: { size: 9 } },
+            },
+            y: {
+              stacked: true,
+              grid: { display: false },
+              ticks: { color: textMuted, font: { size: 10 } },
+            }
+          }
+        }
+      });
+    }
+
+    buildCharts();
+  </script>
+</body>
+</html>

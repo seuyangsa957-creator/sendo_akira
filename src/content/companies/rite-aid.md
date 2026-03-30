@@ -71,3 +71,41 @@ The margin divergence was visible long before the filing. Rite Aid never operate
 | **FY2023 Total Assets** | $7.5B | $249.7B | $96.6B |
 
 *Source: S&P Capital IQ. Fiscal year-ends: Rite Aid (Feb/Mar), CVS (Dec), Walgreens (Aug).*
+
+## The Chapter 11 waterfall: who got what?
+
+Chapter 11 reorganization follows a strict priority rule — secured creditors are paid first, unsecured creditors next, equity last. In practice, the central question is: *where does the enterprise value of the reorganized company run out?* That break point determines the **fulcrum security** — the tranche that stops receiving cash and instead gets converted into equity of the new company.
+
+In Rite Aid's case, the enterprise value at plan confirmation landed inside the **senior secured 2L notes** ($1.17B face value). Everything above them in the stack — the ABL revolver and FILO term loan ($2.62B, rolled into the DIP) — was fully covered and repaid in cash. Everything below — $1.3B+ in general unsecured claims — received a sliver of equity via a creditor trust with minimal practical recovery.
+
+**Pre-petition → DIP → Exit:**
+The ABL revolver ($2.22B) and FILO term loan ($400M) were outstanding before the filing. When Rite Aid filed in October 2023, Bank of America led a $3.45B DIP facility that "rolled up" these existing claims into super-priority DIP status, plus added $200M of new money. At emergence, the DIP was repaid through a $2.5B exit ABL facility — the same lender group, just restructured under a healthier balance sheet.
+
+**The 2L noteholders (the fulcrum):**
+Holders of the $320M (7.5% due 2025) and $850M (8.0% due 2026) senior secured notes were the fulcrum. They received **90% of the equity in New Rite Aid, LLC** plus take-back notes — becoming the new owners. Distressed investors who had purchased these notes at a discount (secondary market prices had fallen sharply ahead of the filing) stood to capture the upside of the reorganized equity. JPMorgan Chase and Sixth Street emerged as the largest shareholders post-confirmation, at ~18% and ~17% respectively.
+
+**General unsecured creditors (GUCs):**
+All unsecured claims — the $188M in unsecured notes, $401.8M DOJ/FCA settlement, McKesson's unsecured claim (~$725M balance sheet charge), and trade vendors — were pooled into a GUC class. They received **10% of NewCo equity** via a trust, shared pro-rata across the entire pool. With ~$1.3B+ in total GUC claims splitting 10% of a modestly valued reorganized equity, cash recovery was negligible. The reason senior noteholders gave them anything: buying the GUC vote was cheaper than litigating a contested cramdown.
+
+<div style="margin: 2rem 0 2.5rem;">
+  <p style="font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.6rem;">Pre-Petition Capital Structure & Recovery by Class</p>
+  <iframe
+    src="/charts/rite-aid-waterfall.html"
+    style="width:100%;height:580px;border:1px solid var(--border);border-radius:10px;background:var(--bg-secondary);display:block;"
+    title="Rite Aid Chapter 11 Waterfall"
+    loading="lazy"
+    scrolling="no"
+  ></iframe>
+  <a href="/charts/rite-aid-waterfall.html" target="_blank" rel="noopener" style="display:block;text-align:right;font-size:0.8rem;color:var(--text-muted);margin-top:0.5rem;">Open full screen ↗</a>
+</div>
+
+| Creditor Class | Claim | Treatment | Recovery |
+|---|---|---|---|
+| ABL Revolver | $2,220M | Rolled into DIP → exit ABL | 100% cash |
+| FILO Term Loan | $400M | Rolled into DIP → exit ABL | 100% cash |
+| **Sr. 2L Notes ← Fulcrum** | **$1,170M** | **90% NewCo equity + take-back debt** | **~100% in equity** |
+| Unsecured Notes | $188M | GUC Equity Trust (10% of NewCo) | ~2% est. |
+| GUC (DOJ, McKesson, trade) | ~$1,300M est. | GUC Equity Trust (10% of NewCo) | ~2% est. |
+| Pre-Petition Equity | — | Canceled at confirmation | 0% |
+
+*GUC claims and equity trust recovery are estimates. Est. enterprise value at confirmation (~$3.2B) is approximate and not publicly disclosed. Source: court filings, Kroll Restructuring, S&P Capital IQ.*
