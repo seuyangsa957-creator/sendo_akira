@@ -46,29 +46,6 @@ All 11 firms tracked across 15 reports rate SYK **Buy, Outperform, or Overweight
 
 **Bulls ($430+) anchor to 2027E EPS at 27–28x P/E** — Jefferies, RBC, Citizens, and Morgan Stanley all use a further-out earnings base that embeds the full Mako flywheel ramp, MedSurg pricing power, and operating leverage. **Bears ($386–$400) use 2026E or rolling NTM** — TD Cowen, UBS, and Evercore stay closer to current-year estimates, refusing to pay for growth that hasn't been delivered. UBS's Q5–Q8 rolling method is the most conservative: it deliberately avoids committing to any calendar year and dynamically reprices as estimates evolve. Their multiple cut from ~28x → ~23x post-Q4 2025 earnings reflects not an EPS revision but **peer multiple compression** — a sector-wide MedTech de-rating they believe SYK won't escape.
 
-## What makes Stryker a good business?
-
-### The Mako flywheel: a self-reinforcing moat
-
-The Mako SmartRobotics platform is the structural core of Stryker's competitive advantage — a closed, proprietary ecosystem built around the razor/razorblade model:
-
-1. **Install the robot** (~$1.25M full arm, or Mako RPS handheld for ASCs) at thin margin to a hospital or ASC
-2. **Lock in implants** — Mako physically cannot accept competitor implants; every procedure on the robot requires Stryker implants ($200–350K recurring revenue per system per year)
-3. **Embed the relationship** — every Mako case requires a Mako Product Specialist (MPS) in the OR, deepening clinical and institutional relationships with surgeons
-4. **The installed base compounds** — ~3,000+ systems generating recurring pull-through, and each new system adds 10–15 years of implant revenue
-
-The result: ~2/3 of all U.S. Stryker knee procedures are now performed on Mako, partially shielding the ortho business from the structural ASP erosion that plagues commodity implant pricing. The platform is expanding to spine (full commercial launch H2 2025), shoulder, and hip revision. The **Mako RPS** (handheld, FDA-cleared Aug 2025, commercial launch Feb 2026) is specifically designed for the 12,300-center U.S. ASC market — smaller footprint, lower cost, TKA-only at launch.
-
-The best structural analog is **Intuitive Surgical's da Vinci** — same razor/razorblade logic, same installed-base-to-recurring-revenue flywheel, but applied to orthopedics rather than soft tissue. Intuitive trades at ~47x NTM P/E; Stryker currently at ~22x.
-
-### Healthcare macro tailwinds
-
-Three structural forces provide decades of durable volume growth:
-
-- **Aging demographics**: Baby Boomers (born 1946–1964) are now 62–80 years old — peak joint replacement and neurovascular intervention age. The U.S. population aged 65+ is growing at 3.4% per year. Each additional year of longevity adds procedural volume.
-- **ASC migration**: ~12,300 ambulatory surgery centers in the U.S. (growing ~1.6%/year), performing an increasing share of orthopedic and MedSurg procedures previously done only in hospitals. CMS added 560 new procedures to the ASC Covered Procedures List for 2026, expanding the total addressable case volume. Stryker's RPS is specifically built to capture this market shift.
-- **Hospital infrastructure renewal**: Post-COVID hospital capex on beds, surgical infrastructure, and capital equipment is in a multi-year renewal cycle. Stryker's MedSurg segment (beds, endoscopy towers, power tools) is a direct beneficiary — these are not discretionary; aging hospital infrastructure must be replaced.
-
 ## What differentiates Mako from competitors, and how durable are the advantages?
 
 ### The platform in a nutshell
