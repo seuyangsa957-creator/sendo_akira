@@ -59,24 +59,54 @@ Mako is a closed, proprietary robotic surgery system — it physically cannot ac
 
 A hospital installing Mako is not buying a device — it is committing its implant spend, surgical workflows, staff training, and clinical data to the Stryker ecosystem. Switching has a real cost that grows with each procedure performed on the system.
 
-### Mako's status quo and growth potential
+### Mako's status quo and growth levers
 
-As of Q4 2025, Stryker's Mako installed base has crossed **3,000 systems worldwide** — a record, driven by a Mako 4-fueled installation surge in 2025. The more telling metric is utilization: what share of Stryker's own implant procedures are actually being performed on the robot.
+| Growth Lever | Mechanism | Scale | Timeframe |
+|-------------|-----------|-------|-----------|
+| Utilization on existing 3,000+ base | More procedures per robot, esp. OUS ¹ | Large — each % point = significant implant revenue | 2–5 years |
+| Procedure volume growth in existing ASCs ² | CMS expansion working through installed base | Large — +21% by 2034 | 5–10 years |
+| Mako 4 / revision hip upsell | Existing Mako hospitals add second unit | Meaningful — 30–40% already multi-unit | Near-term |
+| New ASC construction (non-CON ³ states) | Greenfield platform choice, Mako RPS entry | Moderate — ~80–100 new ortho ASCs/yr | Ongoing |
+| New hospital builds | ~236/yr nationally, Texas & CA leading | Moderate | Ongoing |
+
+¹ OUS = Outside the United States. Global Mako utilization (~50% knees, ~20% hips) trails U.S. levels (~67% knees, ~33% hips), representing implant revenue upside without requiring new robot sales.
+
+² Procedure volumes at ASCs forecast to grow +21% through 2034, driven by CMS expanding reimbursable procedure categories — including revision TKA and THA added to the ASC covered list effective January 2026.
+
+³ CON = Certificate of Need — a state regulatory requirement to obtain government approval before building or expanding a healthcare facility. States without CON laws face less friction to new ASC construction. Non-CON states represent ~36% of the U.S. population (~122M) but include the two highest-construction-activity states: Texas and California.
+
+---
+
+#### Lever 1 — Utilization on existing 3,000+ base
+
+As of Q4 2025, Stryker's Mako installed base has crossed **3,000 systems worldwide** — a record. The most important metric is not how many robots exist, but how intensively they are being used. Utilization measures what share of Stryker's own implant procedures are performed on the Mako arm.
 
 | Geography | Knees | Hips |
 |-----------|------:|-----:|
-| U.S. | **>2/3 (~67%)** | **>1/3 (~33%)** |
+| U.S. | >2/3 (~67%) | >1/3 (~33%) |
 | Global (incl. OUS) | ~50% | ~20% |
 
-Two things stand out in this table. First, **U.S. Knee utilization is near saturation** — 2/3 of Stryker's American knee cases already run through Mako. The remaining ~33% represents surgeons who are either not yet converted or are candidates for Mako RPS rather than the full arm. Second, **OUS utilization is materially lower** — global knees at ~50% and hips at ~20% vs. U.S. levels of ~67% and ~33% — which means the international install base is systematically under-utilized relative to its potential.
+U.S. knee utilization at ~67% is approaching saturation for the full Mako arm — the remaining ~33% of Stryker knee cases are either surgeons who prefer manual technique or candidates for Mako RPS. The more significant gap is international: OUS knees at ~50% and hips at ~20% run materially below U.S. levels, meaning a large share of the existing global install base is generating less implant pull-through than it eventually will.
 
-That gap is a revenue opportunity that doesn't require selling a single new robot. As OUS utilization climbs toward U.S. levels, implant pull-through per existing system increases — more procedures per robot, more implant sets per quarter, higher revenue with no incremental capital cost. Each percentage point of utilization gain across 3,000+ systems is a compounding multiplier on the implant revenue line.
+That gap is a revenue opportunity that requires no new robot sales. As OUS utilization converges toward U.S. levels — driven by surgeon familiarity, clinical evidence accumulation, and international regulatory approvals — implant pull-through per system rises. Each percentage point of utilization gain across 3,000+ systems compounds directly onto the implant revenue line with no incremental capital cost.
 
-The growth math runs in three layers simultaneously: new system installations adding to the base, utilization deepening on existing systems (especially OUS), and new procedure types (shoulder, revision hip) expanding the revenue per procedure as Mako moves up the complexity curve.
+Domestically, the remaining headroom is in the Hip utilization gap (~33% today) and in the segment of manual knee surgeons who haven't converted. Mako RPS is the product designed to close this gap — offering robotic assistance without the workflow complexity that has kept some surgeons on manual technique.
 
-### How Mako has evolved — and what's changed recently
+---
 
-Mako did not start as Stryker's product. It originated at **MAKO Surgical Corp.**, which performed its first robotic partial knee procedure in 2006 and its first robotic total hip in 2010. Stryker acquired the company in December 2013 for $1.65 billion — a deal criticized at the time as overpriced, and now widely regarded as one of the most value-generating acquisitions in MedTech history.
+#### Lever 2 — Procedure volume growth in existing ASCs
+
+The more important near-term ASC opportunity isn't new construction — it's the existing ~12,300 ASCs absorbing a growing share of orthopedic procedure volume that used to require inpatient hospital stays. Surgeons who perform high volumes of joint replacements suggest ASC adoption for appropriate patients could reach **70–80%** over time, compared to roughly 25% today.
+
+The clinical logic is patient selection. An estimated 70–80% of elective joint replacement patients are healthy enough to go home the same day — they don't need an overnight hospital stay for clinical reasons. The remaining 20–30% require inpatient care because they live alone, lack a caretaker at home, or need post-surgical rehabilitation that can't be managed in an outpatient setting. That 70–80% ceiling is the addressable pool for ASC procedures, and the industry is still in the early stages of identifying and routing those patients to the right setting.
+
+The economic incentive for ASC operators reinforces the clinical push. ASCs operate at lower overhead than hospitals — no inpatient beds, smaller footprint, leaner staffing — and they run higher procedural throughput per OR hour. For physician-owned ASCs specifically, the facility fee that Medicare pays to the ASC flows directly to the physician ownership group, creating a meaningful financial incentive that doesn't exist when operating inside a hospital. CMS's expansion of reimbursable procedures in ASC settings accelerates this shift: revision TKA and THA were added to the ASC covered list in January 2026, 285 musculoskeletal procedures were removed from the inpatient-only list in the same rule, and the direction of policy is unambiguous. ASC procedure volumes are forecast to grow **+21% through 2034** on the back of these changes. Every incremental procedure in an ASC where Mako is installed is incremental implant revenue for Stryker.
+
+---
+
+#### Lever 3 — Mako 4 / revision hip upsell
+
+Mako did not start as Stryker's product. It originated at **MAKO Surgical Corp.**, which performed its first robotic partial knee procedure in 2006 and its first robotic total hip in 2010. Stryker acquired the company in December 2013 for $1.65 billion — widely criticized as overpriced at the time and now regarded as one of the most value-generating acquisitions in MedTech history.
 
 | Year | Milestone |
 |------|-----------|
@@ -85,42 +115,27 @@ Mako did not start as Stryker's product. It originated at **MAKO Surgical Corp.*
 | 2013 | Stryker acquires MAKO Surgical for $1.65B |
 | 2017 | Mako Total Knee launched — full TKA added to the platform |
 | 2022–23 | Mako Total Knee 2.0 — updated system, expanded workflow |
-| 2025 | **Mako 4** — fourth-generation platform; revision hip added as headline application |
+| 2025 | **Mako 4** — fourth-generation platform; revision hip as headline application |
 | Jan 2026 | **Mako RPS** — handheld robotic system, first cases begun |
 | Mid-2026 | Mako Shoulder full commercial launch (on Mako 4) expected |
 
-**Mako 4**, launched at AAOS 2025, is the most consequential hardware upgrade in years. The headline addition is **revision hip** — one of orthopedics' most technically demanding procedures, where precise bone preparation and component positioning are critical. Surgeons in early cases described Mako 4's revision hip capability as a "cheat code" for a procedure that had previously demanded years of specialized training to execute reliably. The broader implication: Mako 4 makes existing installations more valuable, prompting hospitals that already own one system to add a second or third. As of Q4 2025, 30–40% of Mako hospitals have more than one system installed.
+**Mako 4**, launched at AAOS 2025, is the most significant hardware upgrade in years. The headline addition is **revision hip** — one of orthopedics' most technically demanding procedures, where distorted bone anatomy from the original implant makes precise component positioning exceptionally difficult. Mako 4's robotic constraint transforms a procedure that previously demanded years of subspecialty training into one that is reliably executable with the system's guidance — surgeons in early cases called it a "cheat code for revisions." The result is that existing Mako installations become more valuable, and hospitals that operate at high utilization have a compelling case to add a second or third unit. As of Q4 2025, **30–40% of Mako hospitals already have more than one system installed**.
 
-**Mako RPS** is a different product for a different customer. Where full Mako requires CT imaging, a large physical footprint, and significant staff training, the RPS uses X-ray imaging, has a smaller form factor, and is designed to minimize workflow disruption. It is explicitly aimed at surgeons who want robotic assistance but are not ready for the change management burden of full Mako — and at ASCs that cannot accommodate the full system. It is TKA-only at launch, sold by the same Mako sales force, and priced to reach settings the full arm could never enter.
+**Mako RPS** targets a fundamentally different customer. Where full Mako requires CT imaging, a large footprint, and significant staff re-training, RPS uses X-ray imaging, has a smaller form factor, and is built to minimize workflow disruption. It is TKA-only at launch, priced to reach settings the full arm cannot, and sold by the same Mako sales force. It is designed for two groups: surgeons who want robotic assistance without full Mako's change management burden, and ASCs that cannot yet accommodate the full system. The same implant lock-in logic applies — every RPS procedure requires Stryker implants.
 
-Together, Mako 4 and Mako RPS address both ends of the market: existing Mako hospitals going deeper, and new customers who were not reachable before.
+---
 
-### The CMS tailwind: regulation is unlocking Stryker's next market
+#### Lever 4 — New ASC construction (non-CON states)
 
-Ambulatory Surgery Centers (ASCs) are outpatient facilities where patients receive surgery and go home the same day. They are structurally lower-cost than hospitals and have been taking share from inpatient settings for years. But their procedure mix is gated by a federal regulatory mechanism.
+New Medicare-certified ASCs are being added at roughly **168 per year** nationally (2024 data), against a base of ~12,300. The ~1.6% annual growth rate is steady but not dramatic. The more important dynamic is *where* new construction is happening — and it skews toward non-CON states, where regulatory barriers to new facility development are absent.
 
-**How CMS controls what ASCs can offer:**
+Of the 236 new hospital builds started in 2025 (a proxy for broader healthcare construction activity), **Texas led with 27 projects and California followed with 17** — the two largest non-CON states, together representing ~23% of the non-CON population. The non-CON universe accounts for ~36% of U.S. population (~122M people) but a disproportionate share of new construction. Each new ASC adding orthopedic procedures makes a one-time platform choice for its robotics and implant spend — a greenfield contract Stryker wins at a high rate given its breadth of ASC-compatible product offerings across Ortho, MedSurg, and Endoscopy.
 
-The Centers for Medicare & Medicaid Services (CMS) historically maintained an **Inpatient-Only (IPO) list** — procedures that Medicare would only reimburse in an inpatient hospital setting. If a procedure was on the IPO list, Medicare would not pay for it in an ASC. Since Medicare covers the majority of the joint replacement patient population (primarily age 65+), this effectively meant ASCs could not offer those procedures at all. The mechanism from CMS policy to Mako adoption runs in a direct sequence:
+---
 
-1. CMS removes a procedure from the IPO list
-2. Medicare reimbursement in ASC settings becomes available
-3. ASCs can now offer the procedure economically and begin investing in required equipment
-4. New ASC construction and renovation demand for implants, robotics, and OR capital rises
-5. Stryker — with the broadest ASC product portfolio in the industry — wins a disproportionate share of new builds and major renovations
+#### Lever 5 — New hospital builds
 
-The policy direction has been consistent and is now accelerating:
-
-| Year | CMS Action |
-|------|-----------|
-| 2018 | Total knee arthroplasty (TKA) removed from IPO list |
-| 2020 | TKA added to ASC covered procedures list; total hip arthroplasty (THA) removed from IPO list |
-| 2021 | THA added to ASC covered procedures list |
-| Jan 2026 | **Revision TKA and revision THA added to ASC covered procedures list; 285 musculoskeletal procedures removed from IPO list in a single rule** |
-
-The 2026 rule is the step-change. Revision joint replacements — the most complex and highest-value orthopedic procedures, and the exact cases where Mako 4's new capabilities are most compelling — are now reimbursable in ASCs for the first time. This creates a simultaneous demand signal for both full Mako (in larger, better-resourced ASCs) and Mako RPS (in smaller ASCs that are newly eligible to perform these cases but lack the infrastructure for the full system).
-
-The competitive dynamic here reinforces Stryker's existing platform advantage. An ASC entering a new procedure category for the first time is making a decade-long platform commitment — its implant spend, its robotics infrastructure, and its surgeon relationships will be shaped by that initial choice. Stryker's closed implant system means an ASC that installs Mako or Mako RPS is locked into Stryker implants for the life of the system. Competitors face that same installed-base logic working against them: convincing an ASC to choose ROSA, VELYS, or CORI means convincing them to also commit to Zimmer, J&J, or Smith & Nephew implants — with less clinical evidence, a smaller install base, and no RPS-equivalent for the lower-complexity segment.
+Hospital construction spending is on a multi-year upswing: $30.7B in projected starts for 2026 (+11.6% YoY), with a 7% CAGR forecast through 2030 to reach $38.8B. Fifteen new hospital projects costing over $1 billion were announced in 2025 alone. Every new hospital that opens an orthopedic service line is a potential Mako placement — and with ~2/3 of U.S. Stryker knee procedures already on Mako, new facilities have a strong clinical evidence base and active sales infrastructure pushing them toward the platform. The hospital construction cycle is slower-moving than ASC activity, but the capital scale of individual contracts is larger.
 
 ## How does Stryker compare to peers?
 
