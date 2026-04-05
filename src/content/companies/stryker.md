@@ -69,6 +69,67 @@ Three structural forces provide decades of durable volume growth:
 - **ASC migration**: ~12,300 ambulatory surgery centers in the U.S. (growing ~1.6%/year), performing an increasing share of orthopedic and MedSurg procedures previously done only in hospitals. CMS added 560 new procedures to the ASC Covered Procedures List for 2026, expanding the total addressable case volume. Stryker's RPS is specifically built to capture this market shift.
 - **Hospital infrastructure renewal**: Post-COVID hospital capex on beds, surgical infrastructure, and capital equipment is in a multi-year renewal cycle. Stryker's MedSurg segment (beds, endoscopy towers, power tools) is a direct beneficiary — these are not discretionary; aging hospital infrastructure must be replaced.
 
+## What differentiates Mako from competitors, and how durable are the advantages?
+
+### The platform in a nutshell
+
+Mako is a closed, proprietary robotic surgery system — it physically cannot accept competitor implants. Every knee or hip procedure performed on the robotic arm requires Stryker implants. This is the razor/razorblade model applied to orthopedic surgery, and it operates in four compounding steps:
+
+1. **Sell the robot** at thin or breakeven margin to embed in a hospital or ASC
+2. **Lock in implants** — Mako's closed architecture makes competitor implants physically incompatible; each system generates $200–350K in recurring implant revenue annually
+3. **Embed the relationship** — every Mako case requires a Mako Product Specialist (MPS) in the OR, deepening clinical ties with individual surgeons; each procedure adds to the system's outcomes database, building a proprietary surgical record that strengthens clinical evidence and academic research in favor of Mako
+4. **The installed base compounds** — 3,000+ systems as of Q4 2025, each generating 10–15 years of implant pull-through; the accumulated data creates surgeon training infrastructure, published outcomes literature, and institutional familiarity that make displacement progressively harder over time
+
+A hospital installing Mako is not buying a device — it is committing its implant spend, surgical workflows, staff training, and clinical data to the Stryker ecosystem. Switching has a real cost that grows with each procedure performed on the system.
+
+### How Mako has evolved — and what's changed recently
+
+Mako did not start as Stryker's product. It originated at **MAKO Surgical Corp.**, which performed its first robotic partial knee procedure in 2006 and its first robotic total hip in 2010. Stryker acquired the company in December 2013 for $1.65 billion — a deal criticized at the time as overpriced, and now widely regarded as one of the most value-generating acquisitions in MedTech history.
+
+| Year | Milestone |
+|------|-----------|
+| 2006 | First MAKOplasty partial knee (pre-Stryker, MAKO Surgical Corp.) |
+| 2010 | First MAKOplasty total hip (pre-Stryker) |
+| 2013 | Stryker acquires MAKO Surgical for $1.65B |
+| 2017 | Mako Total Knee launched — full TKA added to the platform |
+| 2022–23 | Mako Total Knee 2.0 — updated system, expanded workflow |
+| 2025 | **Mako 4** — fourth-generation platform; revision hip added as headline application |
+| Jan 2026 | **Mako RPS** — handheld robotic system, first cases begun |
+| Mid-2026 | Mako Shoulder full commercial launch (on Mako 4) expected |
+
+**Mako 4**, launched at AAOS 2025, is the most consequential hardware upgrade in years. The headline addition is **revision hip** — one of orthopedics' most technically demanding procedures, where precise bone preparation and component positioning are critical. Surgeons in early cases described Mako 4's revision hip capability as a "cheat code" for a procedure that had previously demanded years of specialized training to execute reliably. The broader implication: Mako 4 makes existing installations more valuable, prompting hospitals that already own one system to add a second or third. As of Q4 2025, 30–40% of Mako hospitals have more than one system installed.
+
+**Mako RPS** is a different product for a different customer. Where full Mako requires CT imaging, a large physical footprint, and significant staff training, the RPS uses X-ray imaging, has a smaller form factor, and is designed to minimize workflow disruption. It is explicitly aimed at surgeons who want robotic assistance but are not ready for the change management burden of full Mako — and at ASCs that cannot accommodate the full system. It is TKA-only at launch, sold by the same Mako sales force, and priced to reach settings the full arm could never enter.
+
+Together, Mako 4 and Mako RPS address both ends of the market: existing Mako hospitals going deeper, and new customers who were not reachable before.
+
+### The CMS tailwind: regulation is unlocking Stryker's next market
+
+Ambulatory Surgery Centers (ASCs) are outpatient facilities where patients receive surgery and go home the same day. They are structurally lower-cost than hospitals and have been taking share from inpatient settings for years. But their procedure mix is gated by a federal regulatory mechanism.
+
+**How CMS controls what ASCs can offer:**
+
+The Centers for Medicare & Medicaid Services (CMS) historically maintained an **Inpatient-Only (IPO) list** — procedures that Medicare would only reimburse in an inpatient hospital setting. If a procedure was on the IPO list, Medicare would not pay for it in an ASC. Since Medicare covers the majority of the joint replacement patient population (primarily age 65+), this effectively meant ASCs could not offer those procedures at all. The mechanism from CMS policy to Mako adoption runs in a direct sequence:
+
+1. CMS removes a procedure from the IPO list
+2. Medicare reimbursement in ASC settings becomes available
+3. ASCs can now offer the procedure economically and begin investing in required equipment
+4. New ASC construction and renovation demand for implants, robotics, and OR capital rises
+5. Stryker — with the broadest ASC product portfolio in the industry — wins a disproportionate share of new builds and major renovations
+
+The policy direction has been consistent and is now accelerating:
+
+| Year | CMS Action |
+|------|-----------|
+| 2018 | Total knee arthroplasty (TKA) removed from IPO list |
+| 2020 | TKA added to ASC covered procedures list; total hip arthroplasty (THA) removed from IPO list |
+| 2021 | THA added to ASC covered procedures list |
+| Jan 2026 | **Revision TKA and revision THA added to ASC covered procedures list; 285 musculoskeletal procedures removed from IPO list in a single rule** |
+
+The 2026 rule is the step-change. Revision joint replacements — the most complex and highest-value orthopedic procedures, and the exact cases where Mako 4's new capabilities are most compelling — are now reimbursable in ASCs for the first time. This creates a simultaneous demand signal for both full Mako (in larger, better-resourced ASCs) and Mako RPS (in smaller ASCs that are newly eligible to perform these cases but lack the infrastructure for the full system).
+
+The competitive dynamic here reinforces Stryker's existing platform advantage. An ASC entering a new procedure category for the first time is making a decade-long platform commitment — its implant spend, its robotics infrastructure, and its surgeon relationships will be shaped by that initial choice. Stryker's closed implant system means an ASC that installs Mako or Mako RPS is locked into Stryker implants for the life of the system. Competitors face that same installed-base logic working against them: convincing an ASC to choose ROSA, VELYS, or CORI means convincing them to also commit to Zimmer, J&J, or Smith & Nephew implants — with less clinical evidence, a smaller install base, and no RPS-equivalent for the lower-complexity segment.
+
 ## How does Stryker compare to peers?
 
 Within MedTech, Stryker trades at **~22x NTM P/E and ~$128B market cap** — a premium to pure orthopedic peers (Zimmer Biomet at ~11x, Medtronic at ~15x) but a meaningful discount to Intuitive Surgical (~47x) and growth-oriented peers like Boston Scientific (~20x). The key question is: which peer group is the right reference?
