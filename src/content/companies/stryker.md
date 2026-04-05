@@ -59,6 +59,21 @@ Mako is a closed, proprietary robotic surgery system — it physically cannot ac
 
 A hospital installing Mako is not buying a device — it is committing its implant spend, surgical workflows, staff training, and clinical data to the Stryker ecosystem. Switching has a real cost that grows with each procedure performed on the system.
 
+### Mako's status quo and growth potential
+
+As of Q4 2025, Stryker's Mako installed base has crossed **3,000 systems worldwide** — a record, driven by a Mako 4-fueled installation surge in 2025. The more telling metric is utilization: what share of Stryker's own implant procedures are actually being performed on the robot.
+
+| Geography | Knees | Hips |
+|-----------|------:|-----:|
+| U.S. | **>2/3 (~67%)** | **>1/3 (~33%)** |
+| Global (incl. OUS) | ~50% | ~20% |
+
+Two things stand out in this table. First, **U.S. Knee utilization is near saturation** — 2/3 of Stryker's American knee cases already run through Mako. The remaining ~33% represents surgeons who are either not yet converted or are candidates for Mako RPS rather than the full arm. Second, **OUS utilization is materially lower** — global knees at ~50% and hips at ~20% vs. U.S. levels of ~67% and ~33% — which means the international install base is systematically under-utilized relative to its potential.
+
+That gap is a revenue opportunity that doesn't require selling a single new robot. As OUS utilization climbs toward U.S. levels, implant pull-through per existing system increases — more procedures per robot, more implant sets per quarter, higher revenue with no incremental capital cost. Each percentage point of utilization gain across 3,000+ systems is a compounding multiplier on the implant revenue line.
+
+The growth math runs in three layers simultaneously: new system installations adding to the base, utilization deepening on existing systems (especially OUS), and new procedure types (shoulder, revision hip) expanding the revenue per procedure as Mako moves up the complexity curve.
+
 ### How Mako has evolved — and what's changed recently
 
 Mako did not start as Stryker's product. It originated at **MAKO Surgical Corp.**, which performed its first robotic partial knee procedure in 2006 and its first robotic total hip in 2010. Stryker acquired the company in December 2013 for $1.65 billion — a deal criticized at the time as overpriced, and now widely regarded as one of the most value-generating acquisitions in MedTech history.
