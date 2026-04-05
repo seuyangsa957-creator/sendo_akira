@@ -46,7 +46,7 @@ All 11 firms tracked across 15 reports rate SYK **Buy, Outperform, or Overweight
 
 **Bulls ($430+) anchor to 2027E EPS at 27–28x P/E** — Jefferies, RBC, Citizens, and Morgan Stanley all use a further-out earnings base that embeds the full Mako flywheel ramp, MedSurg pricing power, and operating leverage. **Bears ($386–$400) use 2026E or rolling NTM** — TD Cowen, UBS, and Evercore stay closer to current-year estimates, refusing to pay for growth that hasn't been delivered. UBS's Q5–Q8 rolling method is the most conservative: it deliberately avoids committing to any calendar year and dynamically reprices as estimates evolve. Their multiple cut from ~28x → ~23x post-Q4 2025 earnings reflects not an EPS revision but **peer multiple compression** — a sector-wide MedTech de-rating they believe SYK won't escape.
 
-## What differentiates Mako from competitors, and how durable are the advantages?
+## What is Mako and what are growth drivers?
 
 ### The platform in a nutshell
 
@@ -59,9 +59,9 @@ Mako is a closed, proprietary robotic surgery system — it physically cannot ac
 
 A hospital installing Mako is not buying a device — it is committing its implant spend, surgical workflows, staff training, and clinical data to the Stryker ecosystem. Switching has a real cost that grows with each procedure performed on the system.
 
-### Mako's status quo and growth levers
+### Mako's status quo and growth drivers
 
-| Growth Lever | Mechanism | Scale | Timeframe |
+| Growth Driver | Mechanism | Scale | Timeframe |
 |-------------|-----------|-------|-----------|
 | Utilization on existing 3,000+ base | More procedures per robot, esp. OUS ¹ | Large — each % point = significant implant revenue | 2–5 years |
 | Procedure volume growth in existing ASCs ² | CMS expansion working through installed base | Large — +21% by 2034 | 5–10 years |
@@ -77,7 +77,7 @@ A hospital installing Mako is not buying a device — it is committing its impla
 
 ---
 
-#### Lever 1 — Utilization on existing 3,000+ base
+#### Driver 1 — Utilization on existing 3,000+ base
 
 As of Q4 2025, Stryker's Mako installed base has crossed **3,000 systems worldwide** — a record. The most important metric is not how many robots exist, but how intensively they are being used. Utilization measures what share of Stryker's own implant procedures are performed on the Mako arm.
 
@@ -94,7 +94,7 @@ Domestically, the remaining headroom is in the Hip utilization gap (~33% today) 
 
 ---
 
-#### Lever 2 — Procedure volume growth in existing ASCs
+#### Driver 2 — Procedure volume growth in existing ASCs
 
 The more important near-term ASC opportunity isn't new construction — it's the existing ~12,300 ASCs absorbing a growing share of orthopedic procedure volume that used to require inpatient hospital stays. Surgeons who perform high volumes of joint replacements suggest ASC adoption for appropriate patients could reach **70–80%** over time, compared to roughly 25% today.
 
@@ -104,7 +104,7 @@ The economic incentive for ASC operators reinforces the clinical push. ASCs oper
 
 ---
 
-#### Lever 3 — Mako 4 / revision hip upsell
+#### Driver 3 — Mako 4 / revision hip upsell
 
 Mako did not start as Stryker's product. It originated at **MAKO Surgical Corp.**, which performed its first robotic partial knee procedure in 2006 and its first robotic total hip in 2010. Stryker acquired the company in December 2013 for $1.65 billion — widely criticized as overpriced at the time and now regarded as one of the most value-generating acquisitions in MedTech history.
 
@@ -125,7 +125,7 @@ Mako did not start as Stryker's product. It originated at **MAKO Surgical Corp.*
 
 ---
 
-#### Lever 4 — New ASC construction (non-CON states)
+#### Driver 4 — New ASC construction (non-CON states)
 
 New Medicare-certified ASCs are being added at roughly **168 per year** nationally (2024 data), against a base of ~12,300. The ~1.6% annual growth rate is steady but not dramatic. The more important dynamic is *where* new construction is happening — and it skews toward non-CON states, where regulatory barriers to new facility development are absent.
 
@@ -133,7 +133,7 @@ Of the 236 new hospital builds started in 2025 (a proxy for broader healthcare c
 
 ---
 
-#### Lever 5 — New hospital builds
+#### Driver 5 — New hospital builds
 
 Hospital construction spending is on a multi-year upswing: $30.7B in projected starts for 2026 (+11.6% YoY), with a 7% CAGR forecast through 2030 to reach $38.8B. Fifteen new hospital projects costing over $1 billion were announced in 2025 alone. Every new hospital that opens an orthopedic service line is a potential Mako placement — and with ~2/3 of U.S. Stryker knee procedures already on Mako, new facilities have a strong clinical evidence base and active sales infrastructure pushing them toward the platform. The hospital construction cycle is slower-moving than ASC activity, but the capital scale of individual contracts is larger.
 
