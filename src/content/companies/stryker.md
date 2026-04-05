@@ -127,7 +127,7 @@ Ortho's reported deceleration (+8.9% → +4.3%) is a divestiture artifact, not a
 
 ### MedSurg & Neurotechnology sub-segments
 
-Benchmark: reported segment avg (+11.1% in 2024, +15.8% in 2025). Note: the 2025 avg is inflated by Inari consolidation — organic MedSurg avg ex-Inari ≈ +11.4%. Sub-segments are color-coded against the **reported** avg; the Vascular row is flagged separately as M&A noise.
+Benchmark: organic avg ex-Inari — **+11.1% in 2024, +11.4% in 2025** (the reported 2025 avg of +15.8% is inflated by Inari consolidation and excluded from benchmarking). The Vascular row is flagged separately as M&A noise.
 
 <table class="seg-table">
   <thead>
@@ -137,7 +137,7 @@ Benchmark: reported segment avg (+11.1% in 2024, +15.8% in 2025). Note: the 2025
       <th>2024 ($M)</th>
       <th>YoY vs +11.1%</th>
       <th>2025 ($M)</th>
-      <th>YoY vs +15.8%</th>
+      <th>YoY vs +11.4%</th>
     </tr>
   </thead>
   <tbody>
@@ -147,7 +147,7 @@ Benchmark: reported segment avg (+11.1% in 2024, +15.8% in 2025). Note: the 2025
       <td>$2,834</td>
       <td class="above">+11.8% ↑</td>
       <td>$3,183</td>
-      <td class="below">+12.3%</td>
+      <td class="above">+12.3% ↑</td>
     </tr>
     <tr>
       <td>Endoscopy</td>
@@ -155,7 +155,7 @@ Benchmark: reported segment avg (+11.1% in 2024, +15.8% in 2025). Note: the 2025
       <td>$3,389</td>
       <td class="below">+10.5%</td>
       <td>$3,807</td>
-      <td class="below">+12.3%</td>
+      <td class="above">+12.3% ↑</td>
     </tr>
     <tr>
       <td>Medical</td>
@@ -187,10 +187,10 @@ Benchmark: reported segment avg (+11.1% in 2024, +15.8% in 2025). Note: the 2025
       <td>$13,518</td>
       <td>+11.1% (avg)</td>
       <td>$15,647</td>
-      <td>+15.8% (avg)</td>
+      <td>+15.8% (reported)</td>
     </tr>
     <tr class="row-avg-alt">
-      <td>— organic avg ex-Inari (est.) ②</td>
+      <td>— organic avg ex-Inari (benchmark) ②</td>
       <td>—</td>
       <td>—</td>
       <td>~+11.1%</td>
@@ -202,7 +202,7 @@ Benchmark: reported segment avg (+11.1% in 2024, +15.8% in 2025). Note: the 2025
 
 <p class="seg-note">① Inari Medical (peripheral vascular) acquired January 2024. Consolidated into the Vascular segment line in 2025, adding an estimated ~$580M in reported revenue. Organic Vascular (neurovascular only, excl. Inari) grew at mid-single digits across 2025 quarters: Q1 +5.6%, Q2 +1.4%, Q3 +13.4%, Q4 +4.3% — well below segment avg in all but Q3.<br/>② Organic MedSurg avg estimated by subtracting ~$580M Inari contribution from 2025 Vascular before computing segment growth rate.</p>
 
-**Pattern:** Neuro Cranial is the only sub-segment that outpaced MedSurg in both years. In 2024, Instruments and Medical also beat the avg. In 2025 (organic), Instruments and Endoscopy roughly matched the ~11.4% organic benchmark — but Medical fell short due to mid-year supply disruptions (recovered in Q4).
+**Pattern:** Neuro Cranial outpaced the organic MedSurg avg in both years. Instruments joined it in 2025 (flipping from just-above to clearly above on the organic benchmark). Endoscopy crossed above the organic avg in 2025 despite a mid-year dip. Medical is the one laggard in 2025 — below avg due to supply disruptions, though it recovered to +13.6% in Q4 and management guides 10%+ for 2026.
 
 ---
 
