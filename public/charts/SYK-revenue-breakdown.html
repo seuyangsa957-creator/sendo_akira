@@ -32,7 +32,7 @@
     const SEG = [
       {
         label: 'MedSurg & Neurotechnology', rev: 15647,
-        c: { light: ['#4c1d95','#6d28d9','#8b5cf6'], dark: ['#6d28d9','#7c3aed','#a78bfa'] },
+        c: { light: ['#3b0764','#6d28d9','#c4b5fd'], dark: ['#5b21b6','#8b5cf6','#ddd6fe'] },
         units: [
           { name: 'Medical',            rev: 4204, subs: ['Acute Care','Emerg. Care','Sage','Smart Care'] },
           { name: 'Endoscopy',          rev: 3807, subs: ['Comm.','Endoscopy','Sports Med.','Sustain.'] },
@@ -43,7 +43,7 @@
       },
       {
         label: 'Orthopaedics', rev: 9469,
-        c: { light: ['#134e4a','#0f766e','#14b8a6'], dark: ['#0f766e','#0d9488','#2dd4bf'] },
+        c: { light: ['#042f2e','#0f766e','#99f6e4'], dark: ['#0f766e','#14b8a6','#ccfbf1'] },
         units: [
           { name: 'Joint Replacement †', rev: 5336, subs: ['Knees','Hips','Mako & ET'] },
           { name: 'Trauma & Extremities',rev: 3948, subs: ['Trauma','Foot & Ankle','Upper Ext.'] },
@@ -155,7 +155,7 @@
               svg.appendChild(el('text', {
                 x: cx + cw - 14, y: curY + realH/2 + wFontSize*0.38,
                 'text-anchor': 'end',
-                fill: 'rgba(255,255,255,0.11)',
+                fill: 'rgba(255,255,255,0.28)',
                 'font-size': wFontSize, 'font-weight': 800, 'font-family': font
               }, pct(unit.rev, TOTAL)));
             }
