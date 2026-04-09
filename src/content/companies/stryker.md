@@ -11,6 +11,11 @@ description: Leading medical technology company in orthopaedics, MedSurg, and ne
 
 Stryker is one of the world's largest medical technology companies, founded in 1941 and headquartered in Kalamazoo, Michigan. It reported **$25.1B in revenue in FY2025** (+11.2% YoY), with EBITDA margins expanding from ~19% (2015) to ~24% (2024). Revenue has compounded at ~9% annually over the past decade across two segments:
 
+<div class="chart-embed">
+  <iframe src="/charts/SYK-revenue-breakdown.html" height="480" title="SYK Revenue Breakdown by Segment" loading="lazy" scrolling="no"></iframe>
+  <a href="/charts/SYK-revenue-breakdown.html" target="_blank" rel="noopener" class="chart-link">Open full screen ↗</a>
+</div>
+
 **MedSurg & Neurotechnology (~60% of revenue, $15.65B FY2025, +15.8% YoY)** covers surgical instruments, endoscopy systems, hospital beds and patient handling, emergency medical equipment (Power-PRO XT, Rugged Evacuation Chair), neurovascular stroke intervention (hemorrhagic and ischemic), and craniomaxillofacial (CMF) products. This segment has gone **price-positive** — Stryker's CFO has confirmed MedSurg capital equipment is no longer facing average selling price erosion, unlike ortho. These products embed deeply into hospital infrastructure and nursing workflows, creating institutional switching costs that protect margins.
 
 **Orthopaedics (~40% of revenue, $9.47B FY2025, +4.3% YoY)** includes knee and hip implants, upper extremity (shoulder, elbow), trauma and extremity fixation, and the **Mako SmartRobotics** platform — a closed, proprietary robotic system that physically cannot accept competitor implants. Mako is the crown jewel of the franchise: ~2/3 of all U.S. Stryker knee procedures are now performed robotically on Mako, locking in years of recurring implant revenue per system.
