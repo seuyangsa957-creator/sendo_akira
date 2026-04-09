@@ -5,219 +5,214 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SYK — Revenue Breakdown</title>
   <style>
-    :root {
-      --bg: #ffffff;
-      --text: #111111;
-      --text-muted: #6b7280;
-      --border: #e5e7eb;
-      --c-ms:  #6d28d9;
-      --c-ort: #0f766e;
-    }
-    html.dark {
-      --bg: #0f0f0f;
-      --text: #e5e5e5;
-      --text-muted: #9ca3af;
-      --border: #262626;
-      --c-ms:  #8b5cf6;
-      --c-ort: #14b8a6;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-      padding: 18px 16px 14px;
-      transition: background 0.15s, color 0.15s;
-    }
-    svg { display: block; width: 100%; overflow: visible; }
-    .note {
-      margin-top: 8px;
-      font-size: 9px; color: var(--text-muted); line-height: 1.55;
-    }
+    :root { --bg:#ffffff; --text:#111111; --text-muted:#6b7280; --border:#e5e7eb; }
+    html.dark { --bg:#0f0f0f; --text:#e5e5e5; --text-muted:#9ca3af; --border:#262626; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;padding:16px 16px 12px;transition:background .15s,color .15s}
+    svg{display:block;width:100%;overflow:visible}
+    .note{margin-top:8px;font-size:9px;color:var(--text-muted);line-height:1.55}
   </style>
 </head>
 <body>
-  <svg id="chart" viewBox="0 0 680 390" xmlns="http://www.w3.org/2000/svg"></svg>
+  <svg id="chart" viewBox="0 0 680 470" xmlns="http://www.w3.org/2000/svg"></svg>
   <p class="note">
-    * Vascular includes Inari Medical (~$0.6B, acquired Jan 2024). &nbsp;
-    † Joint Replacement = Knees $2.7B + Hips $1.9B + Mako &amp; Enabling Tech $0.8B. &nbsp;
-    ‡ Spine = residual OUS wind-down; U.S. business divested. &nbsp;
-    FY2025 total $25.1B per Stryker 10-K.
+    * Vascular includes Inari Medical (~$0.6B, acq. Jan 2024). &nbsp;
+    † Joint Replacement = Knees $2.7B + Hips $1.9B + Mako &amp; ET $0.8B. &nbsp;
+    ‡ Spine = residual OUS wind-down; U.S. divested. &nbsp;
+    FY2025 per Stryker 10-K.
   </p>
-
   <script>
-    (function () {
-      try {
-        const s = localStorage.getItem('theme');
-        const p = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (s === 'dark' || (!s && p)) document.documentElement.classList.add('dark');
-      } catch (e) {}
-    })();
+    (function(){try{const s=localStorage.getItem('theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches;if(s==='dark'||(!s&&p))document.documentElement.classList.add('dark')}catch(e){}})();
 
     const TOTAL = 25116;
 
-    // Segments — units sorted largest → smallest
+    // Sub-sub segment squares — distinct hues cycling through palette
+    // Assigned globally in order across all units
+    const PALETTE = [
+      '#f97316','#0ea5e9','#22c55e','#f59e0b',   // 0-3  Medical
+      '#e11d48','#8b5cf6','#14b8a6','#d946ef',   // 4-7  Endoscopy
+      '#84cc16','#06b6d4',                        // 8-9  Instruments
+      '#fb923c','#3b82f6','#10b981','#fbbf24',   // 10-13 Neuro Cranial
+      '#ec4899','#6366f1',                        // 14-15 Vascular
+      '#2dd4bf','#f43f5e','#a3e635',             // 16-18 Joint Replacement
+      '#38bdf8','#c084fc','#4ade80',             // 19-21 T&E
+    ];
+
     const SEG = [
       {
-        label: 'MedSurg & Neurotechnology',
-        rev: 15647,
-        colorKey: '--c-ms',
-        // opacity steps: lightest block gets lowest opacity
-        opacities: [1.0, 0.80, 0.63, 0.48, 0.36],
+        label: 'MedSurg & Neurotechnology', rev: 15647,
+        cLight: '#6d28d9', cDark: '#7c3aed',
         units: [
-          { name: 'Medical',       rev: 4204, sub: 'Acute Care · Emergency Care · Sage · Smart Care' },
-          { name: 'Endoscopy',     rev: 3807, sub: 'Communications · Endoscopy · Sports Med · Sustainability' },
-          { name: 'Instruments',   rev: 3183, sub: 'Orthopaedic Instruments · Surgical Technologies' },
-          { name: 'Neuro Cranial', rev: 2485, sub: 'CMF · ENT · IVS · Neurosurgical' },
-          { name: 'Vascular *',    rev: 1968, sub: 'Inari Medical · Neurovascular' },
+          { name: 'Medical',        rev: 4204,
+            subs: ['Acute Care', 'Emerg. Care', 'Sage', 'Smart Care'] },
+          { name: 'Endoscopy',      rev: 3807,
+            subs: ['Comm.', 'Endoscopy', 'Sports Med.', 'Sustain.'] },
+          { name: 'Instruments',    rev: 3183,
+            subs: ['Orth. Instr.', 'Surg. Tech.'] },
+          { name: 'Neuro Cranial',  rev: 2485,
+            subs: ['CMF', 'ENT', 'IVS', 'Neurosurg.'] },
+          { name: 'Vascular *',     rev: 1968,
+            subs: ['Inari Med.', 'Neurovasc.'] },
         ],
       },
       {
-        label: 'Orthopaedics',
-        rev: 9469,
-        colorKey: '--c-ort',
-        opacities: [1.0, 0.70, 0.22],
+        label: 'Orthopaedics', rev: 9469,
+        cLight: '#0f766e', cDark: '#0d9488',
         units: [
-          { name: 'Joint Replacement †', rev: 5336, sub: 'Knees $2.7B · Hips $1.9B · Mako & ET $0.8B' },
-          { name: 'Trauma & Extremities', rev: 3948, sub: 'Trauma · Foot & Ankle · Upper Extremities' },
-          { name: 'Spine ‡',              rev: 185,  sub: 'OUS wind-down only', muted: true },
+          { name: 'Joint Replacement †', rev: 5336,
+            subs: ['Knees', 'Hips', 'Mako & ET'] },
+          { name: 'Trauma & Extremities', rev: 3948,
+            subs: ['Trauma', 'Foot & Ankle', 'Upper Ext.'] },
+          { name: 'Spine ‡', rev: 185, muted: true, subs: [] },
         ],
       },
     ];
 
-    // ── Helpers ──────────────────────────────────────────────────────────────
+    // Pre-assign palette colors to each sub-sub
+    let pi = 0;
+    SEG.forEach(seg => seg.units.forEach(u => { u.subColors = u.subs.map(() => PALETTE[pi++]); }));
+
     const svgNS = 'http://www.w3.org/2000/svg';
     function el(tag, attrs, text) {
       const e = document.createElementNS(svgNS, tag);
-      for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+      for (const [k,v] of Object.entries(attrs)) e.setAttribute(k,v);
       if (text !== undefined) e.textContent = text;
       return e;
     }
-    function v(name) {
-      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-    }
-    function hexAlpha(hex, a) {
-      const h = hex.replace('#','');
-      const r = parseInt(h.slice(0,2),16), g = parseInt(h.slice(2,4),16), b = parseInt(h.slice(4,6),16);
-      return `rgba(${r},${g},${b},${a})`;
-    }
-    function fmt(m) { return '$' + (m/1000).toFixed(1) + 'B'; }
-    function pct(m, of) { return Math.round(m/of*100) + '%'; }
+    function css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+    function fmt(m) { return '$'+(m/1000).toFixed(1)+'B'; }
+    function pct(m,of) { return Math.round(m/of*100)+'%'; }
 
-    // ── Layout constants ──────────────────────────────────────────────────────
-    const VW = 680, VH = 390;
-    const PX = 12, PT = 10;           // padding x / top
-    const availW = VW - 2*PX;        // 656
-    const HEADER_H = 36;              // segment header strip
-    const GAP_SEG = 8;                // gap between segment columns
-    const GAP_UNIT = 3;               // gap between unit rows
-    const MAP_H = VH - PT - HEADER_H - 8;  // treemap cell area height
+    // Rough char width estimate at given font-size (px)
+    function tw(str, fs) { return str.length * fs * 0.56; }
 
-    // Column widths proportional to revenue
-    const msW  = Math.round((availW - GAP_SEG) * SEG[0].rev / TOTAL);
-    const ortW = availW - GAP_SEG - msW;
-    const msX  = PX;
-    const ortX = PX + msW + GAP_SEG;
-
-    function colWidth(si) { return si === 0 ? msW : ortW; }
-    function colX(si)     { return si === 0 ? msX : ortX; }
-
-    // ── Draw ──────────────────────────────────────────────────────────────────
     function draw() {
       const svg = document.getElementById('chart');
       svg.innerHTML = '';
-      const bg    = v('--bg');
-      const text  = v('--text');
-      const muted = v('--text-muted');
-      const font  = '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif';
+      const isDark = document.documentElement.classList.contains('dark');
+      const BG   = css('--bg');
+      const TEXT = css('--text');
+      const MUTED= css('--text-muted');
+      const font = '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif';
 
-      // Total label
+      // ── Layout ──────────────────────────────────────────────────────────
+      const VW=680, VH=470, PX=14, PT=12;
+      const availW = VW - 2*PX;   // 652
+      const GAP_SEG = 8;
+      const STRIP_Y = PT + 22;    // 34
+      const STRIP_H = 30;
+      const BLOCKS_Y = STRIP_Y + STRIP_H + 5;  // 69
+      const BLOCKS_H = VH - BLOCKS_Y - 10;      // 391
+      const GAP_UNIT = 4;
+
+      const msW  = Math.round((availW - GAP_SEG) * SEG[0].rev / TOTAL); // ~401
+      const ortW = availW - GAP_SEG - msW;                               // ~243
+      const cols = [
+        { x: PX,                 w: msW,  seg: SEG[0] },
+        { x: PX + msW + GAP_SEG, w: ortW, seg: SEG[1] },
+      ];
+
+      // ── Title ────────────────────────────────────────────────────────────
       svg.appendChild(el('text', {
-        x: PX, y: PT + 13,
-        fill: text, 'font-size': 13, 'font-weight': 700, 'font-family': font,
+        x: PX, y: PT+12,
+        fill: TEXT, 'font-size': 12, 'font-weight': 700, 'font-family': font,
         'letter-spacing': '-0.01em'
-      }, 'Stryker FY2025  ·  $25.1B Revenue across 8 Business Units'));
+      }, 'Stryker FY2025  ·  $25.1B Revenue  ·  8 Business Units'));
 
-      SEG.forEach((seg, si) => {
-        const cx  = colX(si);
-        const cw  = colWidth(si);
-        const col = v(seg.colorKey);
+      // ── Segment columns ───────────────────────────────────────────────
+      cols.forEach(({ x: cx, w: cw, seg }) => {
+        const segColor = isDark ? seg.cDark : seg.cLight;
 
-        // ── Segment header ─────────────────────────────────────────────────
-        const hY = PT + 20;
+        // Segment strip header
         svg.appendChild(el('rect', {
-          x: cx, y: hY, width: cw, height: HEADER_H,
-          fill: col, rx: 5
+          x: cx, y: STRIP_Y, width: cw, height: STRIP_H,
+          fill: segColor, rx: 5
         }));
-        // name
         svg.appendChild(el('text', {
-          x: cx + 10, y: hY + 14,
-          fill: '#fff', 'font-size': 11, 'font-weight': 700, 'font-family': font
+          x: cx+10, y: STRIP_Y+13,
+          fill: '#fff', 'font-size': 10.5, 'font-weight': 700, 'font-family': font
         }, seg.label));
-        // rev + pct
         svg.appendChild(el('text', {
-          x: cx + 10, y: hY + 27,
-          fill: 'rgba(255,255,255,0.82)', 'font-size': 10.5, 'font-weight': 500, 'font-family': font
-        }, fmt(seg.rev) + '  ·  ' + pct(seg.rev, TOTAL) + ' of total'));
+          x: cx+10, y: STRIP_Y+25,
+          fill: 'rgba(255,255,255,0.78)', 'font-size': 9.5, 'font-family': font
+        }, fmt(seg.rev) + '  ·  ' + pct(seg.rev, TOTAL) + ' of total revenue'));
 
-        // ── Unit cells ────────────────────────────────────────────────────
-        const cellsY = hY + HEADER_H + 5;
-        const nUnits = seg.units.length;
-        const totalGapH = (nUnits - 1) * GAP_UNIT;
-        const availH = MAP_H - HEADER_H - 5;
+        // Sub-segment blocks
+        const nU = seg.units.length;
+        const availH = BLOCKS_H - (nU-1) * GAP_UNIT;
+        let curY = BLOCKS_Y;
 
-        let curY = cellsY;
         seg.units.forEach((unit, ui) => {
-          const cellH = Math.round((availH - totalGapH) * unit.rev / seg.rev);
-          const op = seg.opacities[ui];
+          // Last unit fills remaining height to avoid rounding drift
+          const blockH = ui < nU-1
+            ? Math.round(availH * unit.rev / seg.rev)
+            : (BLOCKS_Y + availH + (nU-1)*GAP_UNIT) - curY;
+          const realH = Math.max(blockH, 5);
           const isMuted = !!unit.muted;
-          const fillColor = isMuted ? hexAlpha(col, 0.18) : hexAlpha(col, op);
-          const textOnDark = op >= 0.55 && !isMuted;
 
-          // Cell background
+          // Block fill
           svg.appendChild(el('rect', {
-            x: cx, y: curY, width: cw, height: Math.max(cellH, 4),
-            fill: fillColor, rx: 4
+            x: cx, y: curY, width: cw, height: realH,
+            fill: segColor, rx: 4,
+            opacity: isMuted ? 0.12 : 1
           }));
 
-          if (cellH >= 28 && !isMuted) {
-            const lineY1 = curY + 14;
-            const lineY2 = lineY1 + 13;
-            const hasRoom = cellH >= 50;
-            const hasSubLine = cellH >= 46;
-
-            // BU name
+          if (!isMuted && realH >= 30) {
+            // BU name (top-left)
             svg.appendChild(el('text', {
-              x: cx + 9, y: lineY1,
-              fill: textOnDark ? '#fff' : text,
-              'font-size': 11, 'font-weight': 700, 'font-family': font
+              x: cx+9, y: curY+14,
+              fill: '#fff', 'font-size': 11, 'font-weight': 700, 'font-family': font
             }, unit.name));
 
             // Revenue + % of total
-            svg.appendChild(el('text', {
-              x: cx + 9, y: lineY2,
-              fill: textOnDark ? 'rgba(255,255,255,0.80)' : muted,
-              'font-size': 10, 'font-weight': 500, 'font-family': font
-            }, fmt(unit.rev) + '  (' + pct(unit.rev, TOTAL) + ' of total)'));
-
-            // Sub-items line (only if enough room)
-            if (hasSubLine && unit.sub) {
+            if (realH >= 40) {
               svg.appendChild(el('text', {
-                x: cx + 9, y: lineY2 + 12,
-                fill: textOnDark ? 'rgba(255,255,255,0.55)' : muted,
-                'font-size': 8.5, 'font-family': font
-              }, unit.sub));
+                x: cx+9, y: curY+25,
+                fill: 'rgba(255,255,255,0.70)', 'font-size': 8.5, 'font-family': font
+              }, fmt(unit.rev) + '  (' + pct(unit.rev, TOTAL) + ' of total)'));
             }
-          } else if (cellH >= 14 && !isMuted) {
-            // Compact: name + rev on one line
-            svg.appendChild(el('text', {
-              x: cx + 9, y: curY + cellH/2 + 4,
-              fill: textOnDark ? '#fff' : text,
-              'font-size': 10, 'font-weight': 600, 'font-family': font
-            }, unit.name + '  ' + fmt(unit.rev)));
+
+            // Large % watermark for tall blocks
+            if (realH >= 80) {
+              svg.appendChild(el('text', {
+                x: cx + cw - 14, y: curY + realH/2 + 18,
+                'text-anchor': 'end',
+                fill: 'rgba(255,255,255,0.12)',
+                'font-size': 52, 'font-weight': 800, 'font-family': font
+              }, pct(unit.rev, TOTAL)));
+            }
+
+            // Sub-sub squares (bottom of block)
+            if (realH >= 44 && unit.subs.length > 0) {
+              const SQ = 10;               // square size
+              const SQ_R = 2;              // border-radius
+              const SQ_TEXT_GAP = 3;       // gap between square and label
+              const CHIP_GAP = 6;          // gap between chips
+              const LABEL_FS = 7.5;        // label font-size
+              const PAD_BOTTOM = 5;
+              const PAD_LEFT = 9;
+
+              const sqTop = curY + realH - PAD_BOTTOM - SQ;
+              const textY  = sqTop + SQ - 1; // baseline ≈ bottom of square
+
+              let chipX = cx + PAD_LEFT;
+              unit.subs.forEach((sub, si) => {
+                const col = unit.subColors[si];
+                svg.appendChild(el('rect', {
+                  x: chipX, y: sqTop, width: SQ, height: SQ,
+                  fill: col, rx: SQ_R
+                }));
+                svg.appendChild(el('text', {
+                  x: chipX + SQ + SQ_TEXT_GAP, y: textY,
+                  fill: 'rgba(255,255,255,0.82)',
+                  'font-size': LABEL_FS, 'font-family': font
+                }, sub));
+                chipX += SQ + SQ_TEXT_GAP + tw(sub, LABEL_FS) + CHIP_GAP;
+              });
+            }
           }
 
-          curY += Math.max(cellH, 4) + GAP_UNIT;
+          curY += realH + GAP_UNIT;
         });
       });
     }
