@@ -26,51 +26,31 @@
 
     const TOTAL = 25116;
 
-    // Sub-sub segment squares — distinct hues cycling through palette
-    // Assigned globally in order across all units
-    const PALETTE = [
-      '#f97316','#0ea5e9','#22c55e','#f59e0b',   // 0-3  Medical
-      '#e11d48','#8b5cf6','#14b8a6','#d946ef',   // 4-7  Endoscopy
-      '#84cc16','#06b6d4',                        // 8-9  Instruments
-      '#fb923c','#3b82f6','#10b981','#fbbf24',   // 10-13 Neuro Cranial
-      '#ec4899','#6366f1',                        // 14-15 Vascular
-      '#2dd4bf','#f43f5e','#a3e635',             // 16-18 Joint Replacement
-      '#38bdf8','#c084fc','#4ade80',             // 19-21 T&E
-    ];
-
+    // Three-level color ramp per segment (header → block → sub-sub squares)
+    // Light mode:  c0=header(darkest)  c1=block(mid)  c2=sub-squares(lightest)
+    // Dark mode:   same idea, slightly lighter overall
     const SEG = [
       {
         label: 'MedSurg & Neurotechnology', rev: 15647,
-        cLight: '#6d28d9', cDark: '#7c3aed',
+        c: { light: ['#4c1d95','#6d28d9','#8b5cf6'], dark: ['#6d28d9','#7c3aed','#a78bfa'] },
         units: [
-          { name: 'Medical',        rev: 4204,
-            subs: ['Acute Care', 'Emerg. Care', 'Sage', 'Smart Care'] },
-          { name: 'Endoscopy',      rev: 3807,
-            subs: ['Comm.', 'Endoscopy', 'Sports Med.', 'Sustain.'] },
-          { name: 'Instruments',    rev: 3183,
-            subs: ['Orth. Instr.', 'Surg. Tech.'] },
-          { name: 'Neuro Cranial',  rev: 2485,
-            subs: ['CMF', 'ENT', 'IVS', 'Neurosurg.'] },
-          { name: 'Vascular *',     rev: 1968,
-            subs: ['Inari Med.', 'Neurovasc.'] },
+          { name: 'Medical',            rev: 4204, subs: ['Acute Care','Emerg. Care','Sage','Smart Care'] },
+          { name: 'Endoscopy',          rev: 3807, subs: ['Comm.','Endoscopy','Sports Med.','Sustain.'] },
+          { name: 'Instruments',        rev: 3183, subs: ['Orth. Instr.','Surg. Tech.'] },
+          { name: 'Neuro Cranial',      rev: 2485, subs: ['CMF','ENT','IVS','Neurosurg.'] },
+          { name: 'Vascular *',         rev: 1968, subs: ['Inari Med.','Neurovasc.'] },
         ],
       },
       {
         label: 'Orthopaedics', rev: 9469,
-        cLight: '#0f766e', cDark: '#0d9488',
+        c: { light: ['#134e4a','#0f766e','#14b8a6'], dark: ['#0f766e','#0d9488','#2dd4bf'] },
         units: [
-          { name: 'Joint Replacement †', rev: 5336,
-            subs: ['Knees', 'Hips', 'Mako & ET'] },
-          { name: 'Trauma & Extremities', rev: 3948,
-            subs: ['Trauma', 'Foot & Ankle', 'Upper Ext.'] },
-          { name: 'Spine ‡', rev: 185, muted: true, subs: [] },
+          { name: 'Joint Replacement †', rev: 5336, subs: ['Knees','Hips','Mako & ET'] },
+          { name: 'Trauma & Extremities',rev: 3948, subs: ['Trauma','Foot & Ankle','Upper Ext.'] },
+          { name: 'Spine ‡',             rev: 185,  muted: true, subs: [] },
         ],
       },
     ];
-
-    // Pre-assign palette colors to each sub-sub
-    let pi = 0;
-    SEG.forEach(seg => seg.units.forEach(u => { u.subColors = u.subs.map(() => PALETTE[pi++]); }));
 
     const svgNS = 'http://www.w3.org/2000/svg';
     function el(tag, attrs, text) {
@@ -82,51 +62,48 @@
     function css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
     function fmt(m) { return '$'+(m/1000).toFixed(1)+'B'; }
     function pct(m,of) { return Math.round(m/of*100)+'%'; }
-
-    // Rough char width estimate at given font-size (px)
     function tw(str, fs) { return str.length * fs * 0.56; }
 
     function draw() {
       const svg = document.getElementById('chart');
       svg.innerHTML = '';
       const isDark = document.documentElement.classList.contains('dark');
-      const BG   = css('--bg');
-      const TEXT = css('--text');
-      const MUTED= css('--text-muted');
-      const font = '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif';
+      const TEXT  = css('--text');
+      const MUTED = css('--text-muted');
+      const font  = '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif';
 
-      // ── Layout ──────────────────────────────────────────────────────────
       const VW=680, VH=470, PX=14, PT=12;
-      const availW = VW - 2*PX;   // 652
+      const availW  = VW - 2*PX;
       const GAP_SEG = 8;
-      const STRIP_Y = PT + 22;    // 34
+      const STRIP_Y = PT + 22;
       const STRIP_H = 30;
-      const BLOCKS_Y = STRIP_Y + STRIP_H + 5;  // 69
-      const BLOCKS_H = VH - BLOCKS_Y - 10;      // 391
+      const BLOCKS_Y = STRIP_Y + STRIP_H + 5;
+      const BLOCKS_H = VH - BLOCKS_Y - 10;
       const GAP_UNIT = 4;
 
-      const msW  = Math.round((availW - GAP_SEG) * SEG[0].rev / TOTAL); // ~401
-      const ortW = availW - GAP_SEG - msW;                               // ~243
+      const msW  = Math.round((availW - GAP_SEG) * SEG[0].rev / TOTAL);
+      const ortW = availW - GAP_SEG - msW;
       const cols = [
-        { x: PX,                 w: msW,  seg: SEG[0] },
-        { x: PX + msW + GAP_SEG, w: ortW, seg: SEG[1] },
+        { x: PX,                  w: msW,  seg: SEG[0] },
+        { x: PX + msW + GAP_SEG,  w: ortW, seg: SEG[1] },
       ];
 
-      // ── Title ────────────────────────────────────────────────────────────
+      // Title
       svg.appendChild(el('text', {
         x: PX, y: PT+12,
         fill: TEXT, 'font-size': 12, 'font-weight': 700, 'font-family': font,
         'letter-spacing': '-0.01em'
       }, 'Stryker FY2025  ·  $25.1B Revenue  ·  8 Business Units'));
 
-      // ── Segment columns ───────────────────────────────────────────────
       cols.forEach(({ x: cx, w: cw, seg }) => {
-        const segColor = isDark ? seg.cDark : seg.cLight;
+        const colors = isDark ? seg.c.dark : seg.c.light;
+        const c0 = colors[0]; // header (darkest)
+        const c1 = colors[1]; // sub-segment blocks (one lighter)
+        const c2 = colors[2]; // sub-sub squares (lightest)
 
-        // Segment strip header
+        // ── Segment header strip ────────────────────────────────────────────
         svg.appendChild(el('rect', {
-          x: cx, y: STRIP_Y, width: cw, height: STRIP_H,
-          fill: segColor, rx: 5
+          x: cx, y: STRIP_Y, width: cw, height: STRIP_H, fill: c0, rx: 5
         }));
         svg.appendChild(el('text', {
           x: cx+10, y: STRIP_Y+13,
@@ -134,31 +111,30 @@
         }, seg.label));
         svg.appendChild(el('text', {
           x: cx+10, y: STRIP_Y+25,
-          fill: 'rgba(255,255,255,0.78)', 'font-size': 9.5, 'font-family': font
+          fill: 'rgba(255,255,255,0.75)', 'font-size': 9.5, 'font-family': font
         }, fmt(seg.rev) + '  ·  ' + pct(seg.rev, TOTAL) + ' of total revenue'));
 
-        // Sub-segment blocks
-        const nU = seg.units.length;
+        // ── Sub-segment blocks ──────────────────────────────────────────────
+        const nU     = seg.units.length;
         const availH = BLOCKS_H - (nU-1) * GAP_UNIT;
-        let curY = BLOCKS_Y;
+        let curY     = BLOCKS_Y;
 
         seg.units.forEach((unit, ui) => {
-          // Last unit fills remaining height to avoid rounding drift
           const blockH = ui < nU-1
             ? Math.round(availH * unit.rev / seg.rev)
             : (BLOCKS_Y + availH + (nU-1)*GAP_UNIT) - curY;
-          const realH = Math.max(blockH, 5);
+          const realH  = Math.max(blockH, 5);
           const isMuted = !!unit.muted;
 
-          // Block fill
+          // Block — c1 (one lighter than header)
           svg.appendChild(el('rect', {
             x: cx, y: curY, width: cw, height: realH,
-            fill: segColor, rx: 4,
-            opacity: isMuted ? 0.12 : 1
+            fill: c1, rx: 4,
+            opacity: isMuted ? 0.18 : 1
           }));
 
           if (!isMuted && realH >= 30) {
-            // BU name (top-left)
+            // BU name
             svg.appendChild(el('text', {
               x: cx+9, y: curY+14,
               fill: '#fff', 'font-size': 11, 'font-weight': 700, 'font-family': font
@@ -168,46 +144,47 @@
             if (realH >= 40) {
               svg.appendChild(el('text', {
                 x: cx+9, y: curY+25,
-                fill: 'rgba(255,255,255,0.70)', 'font-size': 8.5, 'font-family': font
+                fill: 'rgba(255,255,255,0.68)', 'font-size': 8.5, 'font-family': font
               }, fmt(unit.rev) + '  (' + pct(unit.rev, TOTAL) + ' of total)'));
             }
 
-            // Large % watermark for tall blocks
-            if (realH >= 80) {
+            // Large % watermark — all blocks with realH >= 40
+            if (realH >= 40) {
+              // Scale font to block height so it never overflows
+              const wFontSize = Math.min(52, Math.round(realH * 0.65));
               svg.appendChild(el('text', {
-                x: cx + cw - 14, y: curY + realH/2 + 18,
+                x: cx + cw - 14, y: curY + realH/2 + wFontSize*0.38,
                 'text-anchor': 'end',
-                fill: 'rgba(255,255,255,0.12)',
-                'font-size': 52, 'font-weight': 800, 'font-family': font
+                fill: 'rgba(255,255,255,0.11)',
+                'font-size': wFontSize, 'font-weight': 800, 'font-family': font
               }, pct(unit.rev, TOTAL)));
             }
 
-            // Sub-sub squares (bottom of block)
-            if (realH >= 44 && unit.subs.length > 0) {
-              const SQ = 10;               // square size
-              const SQ_R = 2;              // border-radius
-              const SQ_TEXT_GAP = 3;       // gap between square and label
-              const CHIP_GAP = 6;          // gap between chips
-              const LABEL_FS = 7.5;        // label font-size
-              const PAD_BOTTOM = 5;
-              const PAD_LEFT = 9;
+            // Sub-sub squares — c2 (one lighter than block)
+            if (realH >= 50 && unit.subs.length > 0) {
+              const SQ         = 14;    // bigger squares
+              const SQ_R       = 3;
+              const SQ_TXT_GAP = 4;
+              const CHIP_GAP   = 8;
+              const LABEL_FS   = 9.5;  // bigger font
+              const PAD_BOT    = 7;
+              const PAD_LEFT   = 9;
 
-              const sqTop = curY + realH - PAD_BOTTOM - SQ;
-              const textY  = sqTop + SQ - 1; // baseline ≈ bottom of square
+              const sqTop  = curY + realH - PAD_BOT - SQ;
+              const textY  = sqTop + SQ - 1;
 
               let chipX = cx + PAD_LEFT;
-              unit.subs.forEach((sub, si) => {
-                const col = unit.subColors[si];
+              unit.subs.forEach((sub) => {
                 svg.appendChild(el('rect', {
                   x: chipX, y: sqTop, width: SQ, height: SQ,
-                  fill: col, rx: SQ_R
+                  fill: c2, rx: SQ_R
                 }));
                 svg.appendChild(el('text', {
-                  x: chipX + SQ + SQ_TEXT_GAP, y: textY,
-                  fill: 'rgba(255,255,255,0.82)',
+                  x: chipX + SQ + SQ_TXT_GAP, y: textY,
+                  fill: 'rgba(255,255,255,0.85)',
                   'font-size': LABEL_FS, 'font-family': font
                 }, sub));
-                chipX += SQ + SQ_TEXT_GAP + tw(sub, LABEL_FS) + CHIP_GAP;
+                chipX += SQ + SQ_TXT_GAP + tw(sub, LABEL_FS) + CHIP_GAP;
               });
             }
           }
