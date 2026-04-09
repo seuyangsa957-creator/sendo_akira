@@ -150,6 +150,13 @@ Within MedTech, Stryker trades at **~22x NTM P/E and ~$128B market cap** — a p
   <a href="/charts/SYK-peer-comparison.html" target="_blank" rel="noopener" class="chart-link">Open full screen ↗</a>
 </div>
 
+Valuation multiples tell one side of the story. Margins tell the other. Stryker's **19.5% GAAP operating margin** sits in the middle of the peer pack — above diversified conglomerates (Medtronic 17.9%, STERIS 17.5%) but well below pure-play robotics (ISRG 29.2%) and focused high-margin platforms (Globus 25.5%). The spread between op margin and EBITDA margin is the M&A amortization fingerprint: Stryker's **+6.4pp spread** (19.5% → 25.9%) reflects years of bolt-on acquisitions (Inari, Wright Medical, Vocera) whose purchase price allocations run through the P&L as intangible amortization. Zimmer Biomet's +14.7pp spread is the most extreme in the group — its GAAP operating margin looks depressed but its underlying cash earnings are structurally healthier than the headline number implies.
+
+<div class="chart-embed">
+  <iframe src="/charts/SYK-peer-margins.html" height="620" title="SYK Peer Margin Comparison" loading="lazy" scrolling="no"></iframe>
+  <a href="/charts/SYK-peer-margins.html" target="_blank" rel="noopener" class="chart-link">Open full screen ↗</a>
+</div>
+
 ## What are Stryker's growth drivers, seen in segment growth rate?
 
 The cleanest way to assess Stryker's growth quality is to look at both reported annual revenue by sub-segment and the organic quarterly rates from earnings calls. Two distortions must be stripped out first: the **Inari Medical acquisition** inflates reported Vascular in 2025, and the **U.S. Spine Implants divestiture** suppresses reported Ortho in 2025. The tables below separate these out and color-code each sub-segment against its segment's organic benchmark.

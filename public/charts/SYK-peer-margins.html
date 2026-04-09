@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SYK — Peer Margin Comparison</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-card: #f9fafb;
+      --text: #111111;
+      --text-muted: #6b7280;
+      --accent: #2563eb;
+      --border: #e5e7eb;
+      --grid: #e5e7eb;
+      --c-large: #2563eb;
+      --c-medium: #7c3aed;
+      --c-focused: #ea580c;
+      --c-syk-fill: #0f172a;
+      --c-syk-text: #ffffff;
+      --syk-band: rgba(15,23,42,0.05);
+    }
+    html.dark {
+      --bg: #0f0f0f;
+      --bg-card: #171717;
+      --text: #e5e5e5;
+      --text-muted: #9ca3af;
+      --accent: #60a5fa;
+      --border: #262626;
+      --grid: #1f1f1f;
+      --c-large: #60a5fa;
+      --c-medium: #a78bfa;
+      --c-focused: #fb923c;
+      --c-syk-fill: #f1f5f9;
+      --c-syk-text: #0f172a;
+      --syk-band: rgba(241,245,249,0.07);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      padding: 22px 20px 18px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .header { margin-bottom: 14px; }
+    .ticker-row {
+      font-size: 10px; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 3px;
+    }
+    .title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .subtitle { font-size: 11px; color: var(--text-muted); }
+    svg { display: block; width: 100%; overflow: visible; }
+    .legend {
+      display: flex; gap: 18px; flex-wrap: wrap;
+      margin-top: 12px; padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .legend-section { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    .legend-label {
+      font-size: 9px; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--text-muted); margin-right: 2px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: var(--text-muted); }
+    .swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+    .swatch-circle-fill { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .swatch-circle-hollow { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; border: 2px solid var(--text-muted); background: none; }
+    .footnotes {
+      margin-top: 10px; padding-top: 8px;
+      border-top: 1px solid var(--border);
+      font-size: 9.5px; color: var(--text-muted); line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="ticker-row">NYSE: SYK &nbsp;·&nbsp; Peer Margin Comparison &nbsp;·&nbsp; FY2025</div>
+    <div class="title">Operating Margin vs. EBITDA Margin</div>
+    <div class="subtitle">Dot size = revenue · Left dot = Op. Margin · Right hollow dot = EBITDA Margin · Differential labeled</div>
+  </div>
+
+  <svg id="chart" viewBox="0 0 680 520" xmlns="http://www.w3.org/2000/svg"></svg>
+
+  <div class="legend">
+    <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;">
+      <span class="legend-label">Category</span>
+      <div class="legend-item"><div class="swatch" style="background:var(--c-large)"></div>Large Diversified</div>
+      <div class="legend-item"><div class="swatch" style="background:var(--c-medium)"></div>Medium Diversified</div>
+      <div class="legend-item"><div class="swatch" style="background:var(--c-focused)"></div>Focused</div>
+      <div class="legend-item"><div class="swatch" style="background:var(--c-syk-fill);border:1px solid var(--border)"></div>Stryker (SYK)</div>
+    </div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:6px;">
+      <span class="legend-label">Margins</span>
+      <div class="legend-item">
+        <svg width="20" height="12" style="overflow:visible"><circle cx="6" cy="6" r="5" fill="var(--text-muted)"/><line x1="11" y1="6" x2="20" y2="6" stroke="var(--text-muted)" stroke-width="1.2" stroke-dasharray="2,1.5"/><circle cx="20" cy="6" r="4" fill="var(--bg)" stroke="var(--text-muted)" stroke-width="1.5"/></svg>
+        Op. Margin → EBITDA Margin
+      </div>
+      <div class="legend-item" style="font-size:10px;color:var(--text-muted)">Dot area ∝ Revenue</div>
+    </div>
+  </div>
+
+  <div class="footnotes">
+    ‡‡ J&J FY2025 GAAP metrics inflated by large non-recurring gain; reported GAAP EPS nearly doubled YoY. &nbsp;
+    † Integra FY2025 GAAP metrics distorted by $511M goodwill impairment. Not shown. &nbsp;
+    Baxter not shown (deeply negative GAAP op. margin). &nbsp;
+    GAAP EBITDA = Net Income + Interest + Taxes + D&amp;A per public filings.
+  </div>
+
+  <script>
+    // ── Theme sync ──────────────────────────────────────────────────────────
+    (function () {
+      try {
+        const s = localStorage.getItem('theme');
+        const p = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (s === 'dark' || (!s && p)) document.documentElement.classList.add('dark');
+      } catch (e) {}
+    })();
+
+    // ── Data ────────────────────────────────────────────────────────────────
+    // sorted by op margin descending
+    const peers = [
+      { name: 'ISRG',          ticker: 'ISRG',  cat: 'Focused',     rev: 10.1, opM: 29.2, eM: 35.6 },
+      { name: 'J&J ‡‡',        ticker: 'JNJ',   cat: 'Large Div.',  rev: 94.2, opM: 27.6, eM: 31.8 },
+      { name: 'Globus Medical', ticker: 'GMED',  cat: 'Focused',     rev:  2.9, opM: 25.5, eM: 37.4 },
+      { name: 'Stryker',        ticker: 'SYK',   cat: 'SYK',         rev: 25.1, opM: 19.5, eM: 25.9 },
+      { name: 'Medtronic',      ticker: 'MDT',   cat: 'Large Div.',  rev: 33.5, opM: 17.9, eM: 26.3 },
+      { name: 'STERIS',         ticker: 'STE',   cat: 'Medium Div.', rev:  5.5, opM: 17.5, eM: 27.3 },
+      { name: 'Olympus',        ticker: 'OCPNY', cat: 'Medium Div.', rev:  6.7, opM: 16.2, eM: 20.9 },
+      { name: 'Penumbra',       ticker: 'PEN',   cat: 'Focused',     rev:  1.4, opM: 13.5, eM: 17.8 },
+      { name: 'Zimmer Biomet',  ticker: 'ZBH',   cat: 'Focused',     rev:  8.2, opM: 13.3, eM: 28.0 },
+      { name: 'Smith+Nephew',   ticker: 'SNN',   cat: 'Medium Div.', rev:  6.2, opM: 12.9, eM: 19.4 },
+      { name: 'ConMed',         ticker: 'CNMD',  cat: 'Focused',     rev:  1.4, opM:  7.5, eM: 11.3 },
+    ];
+
+    // ── Layout ──────────────────────────────────────────────────────────────
+    const VW = 680, VH = 520;
+    const ML = 110, MR = 85, MT = 52, MB = 24;
+    const plotW = VW - ML - MR;
+    const plotH = VH - MT - MB;
+    const N = peers.length;
+    const rowH = plotH / N;
+
+    const xMin = 0, xMax = 42;
+    const xScale = v => ML + (v - xMin) / (xMax - xMin) * plotW;
+
+    // row center y
+    const yRow = i => MT + (i + 0.5) * rowH;
+
+    // area-proportional radius
+    const revMin = Math.sqrt(1.4), revMax = Math.sqrt(94.2);
+    const rMin = 5, rMax = 20;
+    const dotR = rev => rMin + (Math.sqrt(rev) - revMin) / (revMax - revMin) * (rMax - rMin);
+
+    // ── Colors ──────────────────────────────────────────────────────────────
+    function catColor(cat) {
+      const s = getComputedStyle(document.documentElement);
+      if (cat === 'SYK')        return s.getPropertyValue('--c-syk-fill').trim();
+      if (cat === 'Large Div.') return s.getPropertyValue('--c-large').trim();
+      if (cat === 'Medium Div.')return s.getPropertyValue('--c-medium').trim();
+      return s.getPropertyValue('--c-focused').trim();
+    }
+
+    function varVal(name) {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
+    // ── SVG helpers ─────────────────────────────────────────────────────────
+    const svgNS = 'http://www.w3.org/2000/svg';
+    function el(tag, attrs, text) {
+      const e = document.createElementNS(svgNS, tag);
+      for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+      if (text !== undefined) e.textContent = text;
+      return e;
+    }
+
+    // ── Draw ─────────────────────────────────────────────────────────────────
+    function draw() {
+      const svg = document.getElementById('chart');
+      svg.innerHTML = '';
+
+      const bg       = varVal('--bg');
+      const bgCard   = varVal('--bg-card');
+      const textCol  = varVal('--text');
+      const mutedCol = varVal('--text-muted');
+      const borderCol= varVal('--border');
+      const gridCol  = varVal('--grid');
+      const sykBand  = varVal('--syk-band');
+
+      // ── SYK highlight band ───────────────────────────────────────────────
+      const sykIdx = peers.findIndex(p => p.ticker === 'SYK');
+      const bandY = MT + sykIdx * rowH;
+      svg.appendChild(el('rect', {
+        x: 0, y: bandY, width: VW, height: rowH,
+        fill: sykBand
+      }));
+
+      // ── Grid lines & x-axis ticks ────────────────────────────────────────
+      const ticks = [0, 5, 10, 15, 20, 25, 30, 35, 40];
+      for (const t of ticks) {
+        const x = xScale(t);
+        // grid line
+        svg.appendChild(el('line', {
+          x1: x, y1: MT, x2: x, y2: MT + plotH,
+          stroke: gridCol, 'stroke-width': 0.8,
+          'stroke-dasharray': t === 0 ? 'none' : '3,3'
+        }));
+        // tick label
+        svg.appendChild(el('text', {
+          x, y: MT - 6,
+          'text-anchor': 'middle',
+          fill: mutedCol,
+          'font-size': 9,
+          'font-family': '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif'
+        }, t + '%'));
+      }
+
+      // axis label
+      svg.appendChild(el('text', {
+        x: ML + plotW / 2, y: MT - 20,
+        'text-anchor': 'middle',
+        fill: mutedCol,
+        'font-size': 8.5,
+        'font-weight': 600,
+        'letter-spacing': 0.08,
+        'font-family': '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif'
+      }, 'MARGIN (%)'));
+
+      // ── Rows ─────────────────────────────────────────────────────────────
+      peers.forEach((p, i) => {
+        const cy   = yRow(i);
+        const xOp  = xScale(p.opM);
+        const xEb  = xScale(p.eM);
+        const r    = dotR(p.rev);
+        const col  = catColor(p.cat);
+        const diff = (p.eM - p.opM).toFixed(1);
+        const isSYK = p.ticker === 'SYK';
+
+        // alternating row bg (very subtle)
+        if (i % 2 === 0) {
+          svg.appendChild(el('rect', {
+            x: ML, y: MT + i * rowH,
+            width: plotW, height: rowH,
+            fill: isSYK ? 'none' : varVal('--bg-card'),
+            opacity: 0.35
+          }));
+        }
+
+        // connector line
+        svg.appendChild(el('line', {
+          x1: xOp, y1: cy, x2: xEb, y2: cy,
+          stroke: col,
+          'stroke-width': isSYK ? 1.8 : 1.2,
+          opacity: isSYK ? 0.6 : 0.35
+        }));
+
+        // EBITDA dot (hollow)
+        svg.appendChild(el('circle', {
+          cx: xEb, cy, r,
+          fill: bg,
+          stroke: col,
+          'stroke-width': isSYK ? 2.2 : 1.8,
+          opacity: 0.9
+        }));
+
+        // Op margin dot (filled)
+        svg.appendChild(el('circle', {
+          cx: xOp, cy, r,
+          fill: col,
+          opacity: isSYK ? 1 : 0.85
+        }));
+
+        // differential label
+        const diffX = xEb + r + 5;
+        svg.appendChild(el('text', {
+          x: diffX, y: cy + 3.5,
+          fill: col,
+          'font-size': isSYK ? 9.5 : 8.5,
+          'font-weight': isSYK ? 700 : 500,
+          'font-family': '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif'
+        }, '+' + diff + 'pp'));
+
+        // op margin value inside dot (if large enough)
+        if (r >= 10) {
+          svg.appendChild(el('text', {
+            x: xOp, y: cy + 3.5,
+            'text-anchor': 'middle',
+            fill: isSYK ? varVal('--c-syk-text') : '#fff',
+            'font-size': 8,
+            'font-weight': 700,
+            'font-family': '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif'
+          }, p.opM + '%'));
+        }
+
+        // row label (left side)
+        const labelX = ML - 6;
+        const isBold = isSYK;
+        svg.appendChild(el('text', {
+          x: labelX, y: cy - 2,
+          'text-anchor': 'end',
+          fill: isSYK ? col : textCol,
+          'font-size': isSYK ? 11 : 10,
+          'font-weight': isBold ? 700 : 500,
+          'font-family': '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif'
+        }, p.name));
+
+        // ticker sub-label
+        svg.appendChild(el('text', {
+          x: labelX, y: cy + 9,
+          'text-anchor': 'end',
+          fill: mutedCol,
+          'font-size': 8.5,
+          'font-family': '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif'
+        }, p.ticker + '  $' + p.rev + 'B'));
+      });
+
+      // ── Border box ───────────────────────────────────────────────────────
+      svg.appendChild(el('rect', {
+        x: ML, y: MT, width: plotW, height: plotH,
+        fill: 'none', stroke: borderCol, 'stroke-width': 0.8
+      }));
+    }
+
+    draw();
+
+    // Redraw on dark/light toggle
+    const observer = new MutationObserver(() => draw());
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  </script>
+</body>
+</html>
