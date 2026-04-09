@@ -39,7 +39,7 @@
 </head>
 <body>
   <div class="header">
-    <div class="ticker-row">NYSE: SYK &nbsp;·&nbsp; MedTech Peer Comparison &nbsp;·&nbsp; as of ~Mar 20, 2026</div>
+    <div class="ticker-row">NYSE: SYK &nbsp;·&nbsp; MedTech Peer Comparison &nbsp;·&nbsp; as of ~Apr 9, 2026</div>
     <div class="title">Stryker vs. MedTech Peers</div>
     <div class="subtitle">NTM P/E multiples &amp; market caps · Stryker highlighted in blue</div>
   </div>
@@ -59,24 +59,24 @@
 
   <div class="footnotes">
     <div class="fn">* <strong>JNJ</strong> = conglomerate (Pharma + MedTech); full-company P/E not directly comparable to pure-play peers.</div>
-    <div class="fn">† <strong>BDX</strong> = post-spin of Biosciences/Diagnostics (Feb 9, 2026); NTM P/E reflects new earnings base.</div>
-    <div class="fn">‡ <strong>SMMNY</strong> = Siemens Healthineers OTC ADR; EUR-denominated underlying. Source: StockAnalysis, GuruFocus, Yahoo Finance ~Mar 20, 2026.</div>
+    <div class="fn">‡ <strong>OLYMY</strong> = Olympus Corp. OTC ADR; JPY-denominated underlying; forward P/E estimated from consensus. Source: StockAnalysis, Yahoo Finance, CompaniesMarketCap ~Apr 9, 2026.</div>
   </div>
 
   <script>
     (function(){try{const s=localStorage.getItem('theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches;if(s==='dark'||(!s&&p))document.documentElement.classList.add('dark');}catch(e){}})();
 
     const peData=[
-      {ticker:'ISRG',name:'Intuitive Surgical',pe:47,cap:170},
-      {ticker:'SYK', name:'Stryker',           pe:22,cap:128},
-      {ticker:'BSX', name:'Boston Scientific',  pe:20,cap:107},
-      {ticker:'JNJ', name:'J&J (MedTech)*',    pe:20,cap:582},
-      {ticker:'ABT', name:'Abbott',             pe:19,cap:190},
-      {ticker:'SMMNY',name:'Siemens Health.‡',  pe:16,cap:47 },
-      {ticker:'MDT', name:'Medtronic',          pe:15,cap:118},
-      {ticker:'GEHC',name:'GE Healthcare',      pe:15,cap:36 },
-      {ticker:'BDX', name:'Becton Dickinson†',  pe:12,cap:51 },
-      {ticker:'ZBH', name:'Zimmer Biomet',      pe:11,cap:18 },
+      {ticker:'PEN',  name:'Penumbra',           pe:65, cap:13 },
+      {ticker:'ISRG', name:'Intuitive Surgical',  pe:46, cap:162},
+      {ticker:'SYK',  name:'Stryker',             pe:23, cap:130},
+      {ticker:'STE',  name:'STERIS',              pe:21, cap:22 },
+      {ticker:'JNJ',  name:'J&J (MedTech)*',     pe:21, cap:581},
+      {ticker:'GMED', name:'Globus Medical',      pe:20, cap:12 },
+      {ticker:'OLYMY',name:'Olympus Corp.‡',     pe:19, cap:11 },
+      {ticker:'MDT',  name:'Medtronic',           pe:15, cap:113},
+      {ticker:'SNN',  name:'Smith & Nephew',      pe:15, cap:14 },
+      {ticker:'ZBH',  name:'Zimmer Biomet',       pe:11, cap:18 },
+      {ticker:'CNMD', name:'ConMed',              pe:8,  cap:1  },
     ];
     const capData=[...peData].sort((a,b)=>b.cap-a.cap);
 
