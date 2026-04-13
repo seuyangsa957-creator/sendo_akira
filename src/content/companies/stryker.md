@@ -160,7 +160,7 @@ The pattern is the ROIC story of a serial acquirer: **26.7% in 2012**, before th
 ROIC in isolation tells you the stock — incremental ROIC tells you the story forward. **ROIIC** (ΔNOPAT / ΔIC) measures the return earned on each new dollar deployed. For a serial acquirer, single-year ROIIC is noise: the full purchase price hits invested capital on the day of close, while NOPAT from the acquired business builds over 2–4 years. Rolling windows — 3-year and 5-year — are the right lens.
 
 <div class="chart-embed">
-  <iframe src="/charts/SYK-roiic.html" height="720" title="SYK Incremental ROIC Summary" loading="lazy" scrolling="no"></iframe>
+  <iframe src="/charts/SYK-roiic.html" height="920" title="SYK Incremental ROIC Summary" loading="lazy" scrolling="no"></iframe>
   <a href="/charts/SYK-roiic.html" target="_blank" rel="noopener" class="chart-link">Open full screen ↗</a>
 </div>
 
