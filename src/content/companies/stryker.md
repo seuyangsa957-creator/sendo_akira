@@ -142,6 +142,34 @@ Of the 236 new hospital builds started in 2025 (a proxy for broader healthcare c
 
 Hospital construction spending is on a multi-year upswing: $30.7B in projected starts for 2026 (+11.6% YoY), with a 7% CAGR forecast through 2030 to reach $38.8B. Fifteen new hospital projects costing over $1 billion were announced in 2025 alone. Every new hospital that opens an orthopedic service line is a potential Mako placement — and with ~2/3 of U.S. Stryker knee procedures already on Mako, new facilities have a strong clinical evidence base and active sales infrastructure pushing them toward the platform. The hospital construction cycle is slower-moving than ASC activity, but the capital scale of individual contracts is larger.
 
+## How value-creative is Stryker's M&A?
+
+M&A is one of Stryker's primary growth strategies. Since 2016, the company has deployed over **$20 billion on acquisitions** — spanning transformational platform bets (Wright Medical at $4.7B, Inari Medical at $4.8B) and capability bolt-ons (MAKO Surgical, Sage Products, Vocera Communications, Physio-Control). The question is not whether Stryker acquires aggressively — it does — but whether the capital deployed generates returns above its cost of capital.
+
+To answer that, we calculate **Version 1 ROIC**: NOPAT divided by average invested capital, where the full acquisition cost (goodwill + intangibles) is held in the denominator. This is the accountability metric — management can't escape the drag of a $4.8B acquisition premium unless the acquired business earns its keep.
+
+**NOPAT** = EBITA × (1 − normalized cash tax rate), where EBITA adds back amortization of acquired intangibles and goodwill impairment charges to EBIT. **Invested Capital** = Net Working Capital + Net PP&E + Goodwill + Other Intangibles + Operating Lease ROU assets. Average IC (beginning + ending ÷ 2) is used as the denominator to smooth year-end timing.
+
+<div class="chart-embed">
+  <iframe src="/charts/SYK-roic.html" height="560" title="SYK ROIC Version 1 (2012–2025)" loading="lazy" scrolling="no"></iframe>
+  <a href="/charts/SYK-roic.html" target="_blank" rel="noopener" class="chart-link">Open full screen ↗</a>
+</div>
+
+The pattern is the ROIC story of a serial acquirer: **26.7% in 2012**, before the major acquisition wave, compressing to **12.9% in 2020** as Wright Medical's $4.7B IC hit landed before its NOPAT contribution materialized. Since then, ROIC has recovered to **17.2% in 2025** as acquired businesses mature and integrate. Critically, ROIC has remained above WACC (~8.5%) in every single year — meaning Stryker has created shareholder value throughout, even during the deepest acquisition years. The ROIC–WACC spread currently stands at approximately **+8.7 percentage points**.
+
+ROIC in isolation tells you the stock — incremental ROIC tells you the story forward. **ROIIC** (ΔNOPAT / ΔIC) measures the return earned on each new dollar deployed. For a serial acquirer, single-year ROIIC is noise: the full purchase price hits invested capital on the day of close, while NOPAT from the acquired business builds over 2–4 years. Rolling windows — 3-year and 5-year — are the right lens.
+
+<div class="chart-embed">
+  <iframe src="/charts/SYK-roiic.html" height="720" title="SYK Incremental ROIC Summary" loading="lazy" scrolling="no"></iframe>
+  <a href="/charts/SYK-roiic.html" target="_blank" rel="noopener" class="chart-link">Open full screen ↗</a>
+</div>
+
+The rolling ROIIC trend is the most important number in this analysis. The **5-year rolling ROIIC reached 26.4% in 2025** — the highest in the 14-year series — meaning the cohort of capital deployed over 2020–2025 (Wright Medical, Vocera, Inari) is generating better incremental returns than any prior 5-year deployment window. The 3-year ROIIC of **24.5%** tells a similar story. Both sit well above WACC, and both are accelerating.
+
+The implication: Stryker's acquisition capability has *improved* over time. Earlier deals in the 2013–2016 wave (MAKO, Sage, Physio-Control) generated more modest incremental returns as the integration infrastructure was being built. The more recent cohort appears to be deploying into higher-conviction, more synergistic opportunities — with Inari Medical's peripheral vascular franchise in particular positioned to outperform the prior wave given its strategic fit with Stryker's MedSurg commercial infrastructure.
+
+---
+
 ## How does Stryker compare to peers?
 
 Within MedTech, Stryker trades at **~22x NTM P/E and ~$128B market cap** — a premium to pure orthopedic peers (Zimmer Biomet at ~11x, Medtronic at ~15x) but a meaningful discount to Intuitive Surgical (~47x) and growth-oriented peers like Boston Scientific (~20x). The key question is: which peer group is the right reference?

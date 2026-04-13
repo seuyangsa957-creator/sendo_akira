@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SYK — ROIC (Version 1, 2012–2025)</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-card: #f9fafb;
+      --text: #111111;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #3d6b9e;
+      --line-roic: #3d6b9e;
+      --fill-roic: rgba(61,107,158,0.10);
+      --line-wacc: #dc2626;
+      --fill-spread: rgba(61,107,158,0.07);
+      --grid: #e5e7eb;
+      --kpi-bg: #f3f4f6;
+      --acq-color: rgba(234,179,8,0.75);
+    }
+    html.dark {
+      --bg: #0f0f0f;
+      --bg-card: #171717;
+      --text: #e5e5e5;
+      --text-muted: #9ca3af;
+      --border: #262626;
+      --accent: #a8c4de;
+      --line-roic: #7bafd4;
+      --fill-roic: rgba(123,175,212,0.10);
+      --line-wacc: #f87171;
+      --fill-spread: rgba(123,175,212,0.07);
+      --grid: #1f1f1f;
+      --kpi-bg: #1a1a1a;
+      --acq-color: rgba(250,204,21,0.65);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      padding: 24px 20px 20px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .header { margin-bottom: 18px; }
+    .ticker-row {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    .subtitle {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .kpi-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 16px 0 20px;
+    }
+    .kpi {
+      background: var(--kpi-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      flex: 1;
+      min-width: 100px;
+    }
+    .kpi-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .kpi-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .kpi-delta {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .kpi-value.green { color: #16a34a; }
+    .kpi-value.amber { color: #d97706; }
+    .chart-wrap {
+      position: relative;
+      width: 100%;
+    }
+    .acq-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      margin-top: 16px;
+      font-size: 10.5px;
+      color: var(--text-muted);
+    }
+    .acq-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .acq-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--acq-color);
+      border: 1.5px solid #ca8a04;
+      flex-shrink: 0;
+    }
+    .note {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      margin-top: 14px;
+      line-height: 1.6;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="ticker-row">SYK — Stryker Corporation</div>
+    <div class="title">ROIC (Version 1): Full acquisition cost held in denominator</div>
+    <div class="subtitle">NOPAT / Average Invested Capital · Goodwill + Intangibles included · Normalized cash tax rate</div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">2025 ROIC</div>
+      <div class="kpi-value amber">17.2%</div>
+      <div class="kpi-delta">vs. 17.8% in 2024</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Est. WACC</div>
+      <div class="kpi-value">~8.5%</div>
+      <div class="kpi-delta">Hurdle rate for value creation</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">ROIC–WACC Spread</div>
+      <div class="kpi-value green">+8.7pp</div>
+      <div class="kpi-delta">Value-creative in every year shown</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Peak ROIC</div>
+      <div class="kpi-value">26.7%</div>
+      <div class="kpi-delta">2012 — pre-major acquisition wave</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <canvas id="roicChart" height="340"></canvas>
+  </div>
+
+  <div class="acq-legend">
+    <div class="acq-legend-item"><span class="acq-dot"></span>Major acquisition year</div>
+    <div class="acq-legend-item">2013: MAKO Surgical ($1.65B)</div>
+    <div class="acq-legend-item">2014: Sage Products ($2.8B)</div>
+    <div class="acq-legend-item">2016: Physio-Control + others ($4.3B)</div>
+    <div class="acq-legend-item">2020: Wright Medical ($4.7B)</div>
+    <div class="acq-legend-item">2022: Vocera Communications ($3.1B)</div>
+    <div class="acq-legend-item">2025: Inari Medical ($4.8B)</div>
+  </div>
+
+  <div class="note">
+    <strong>Methodology:</strong> NOPAT = EBITA (EBIT + amortization of acquired intangibles + goodwill impairment) × (1 − normalized cash tax rate). Invested Capital = NWC + Net PP&E + Goodwill + Other Intangibles + Operating Lease ROU Assets − Lease Liabilities. ROIC uses average of beginning and ending IC. Normalized cash tax rates used throughout to remove distortion from one-time tax events (e.g., 2025 IP transfer charge that pushed reported rate to 28.1%).<br/>
+    Source: Stryker 10-K filings, S&P Capital IQ. Author's calculations.
+  </div>
+
+  <script>
+    // Detect dark mode from parent
+    (function() {
+      try {
+        if (window.parent && window.parent.document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch(e) {}
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+
+    const years = [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+    const roic  = [26.72, 23.08, 23.22, 23.29, 20.46, 15.95, 16.04, 16.81, 12.95, 14.88, 14.51, 14.71, 17.82, 17.21];
+    const wacc  = years.map(() => 8.5);
+
+    // Acquisition years for annotation
+    const acqYears = [2013, 2014, 2016, 2020, 2022, 2025];
+
+    const annotations = {};
+    acqYears.forEach((yr, i) => {
+      annotations[`acq_${i}`] = {
+        type: 'line',
+        xMin: yr,
+        xMax: yr,
+        borderColor: 'rgba(202,138,4,0.35)',
+        borderWidth: 1.5,
+        borderDash: [4, 3],
+        label: {
+          display: false
+        }
+      };
+      annotations[`acq_dot_${i}`] = {
+        type: 'point',
+        xValue: yr,
+        yValue: roic[years.indexOf(yr)],
+        backgroundColor: 'rgba(234,179,8,0.75)',
+        borderColor: '#92400e',
+        borderWidth: 1.5,
+        radius: 6
+      };
+    });
+
+    const isDark = document.documentElement.classList.contains('dark');
+    const gridColor = isDark ? '#1f1f1f' : '#e5e7eb';
+    const textColor = isDark ? '#9ca3af' : '#6b7280';
+
+    const ctx = document.getElementById('roicChart').getContext('2d');
+
+    // Gradient fill
+    const gradient = ctx.createLinearGradient(0, 0, 0, 340);
+    gradient.addColorStop(0, isDark ? 'rgba(123,175,212,0.18)' : 'rgba(61,107,158,0.14)');
+    gradient.addColorStop(1, isDark ? 'rgba(123,175,212,0.00)' : 'rgba(61,107,158,0.00)');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [
+          {
+            label: 'ROIC (Version 1)',
+            data: roic,
+            borderColor: isDark ? '#7bafd4' : '#3d6b9e',
+            borderWidth: 2.5,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            pointBackgroundColor: isDark ? '#7bafd4' : '#3d6b9e',
+            fill: 'origin',
+            backgroundColor: gradient,
+            tension: 0.3,
+            order: 1
+          },
+          {
+            label: 'Est. WACC (~8.5%)',
+            data: wacc,
+            borderColor: isDark ? '#f87171' : '#dc2626',
+            borderWidth: 1.5,
+            borderDash: [6, 4],
+            pointRadius: 0,
+            fill: false,
+            tension: 0,
+            order: 2
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: {
+            position: 'top',
+            align: 'end',
+            labels: {
+              color: textColor,
+              font: { size: 11 },
+              boxWidth: 24,
+              padding: 12,
+              usePointStyle: true
+            }
+          },
+          tooltip: {
+            backgroundColor: isDark ? '#1f1f1f' : '#ffffff',
+            borderColor: isDark ? '#333' : '#e5e7eb',
+            borderWidth: 1,
+            titleColor: isDark ? '#e5e5e5' : '#111',
+            bodyColor: textColor,
+            padding: 10,
+            callbacks: {
+              label: ctx => {
+                if (ctx.dataset.label.includes('WACC')) return `  WACC: 8.5%`;
+                const yr = years[ctx.dataIndex];
+                const isAcq = acqYears.includes(yr);
+                return `  ROIC: ${ctx.parsed.y.toFixed(1)}%${isAcq ? ' ★ Major acq. year' : ''}`;
+              },
+              afterBody: ctx => {
+                const yr = years[ctx[0].dataIndex];
+                const roicVal = roic[ctx[0].dataIndex];
+                const spread = (roicVal - 8.5).toFixed(1);
+                return [`  ROIC–WACC spread: +${spread}pp`];
+              }
+            }
+          },
+          annotation: {
+            annotations: annotations
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: gridColor },
+            ticks: { color: textColor, font: { size: 11 } }
+          },
+          y: {
+            grid: { color: gridColor },
+            ticks: {
+              color: textColor,
+              font: { size: 11 },
+              callback: v => v.toFixed(0) + '%'
+            },
+            min: 0,
+            max: 32,
+            title: {
+              display: true,
+              text: 'ROIC (%)',
+              color: textColor,
+              font: { size: 11 }
+            }
+          }
+        }
+      }
+    });
+
+    // Listen for dark mode messages from parent
+    window.addEventListener('message', e => {
+      if (e.data === 'dark') document.documentElement.classList.add('dark');
+      if (e.data === 'light') document.documentElement.classList.remove('dark');
+    });
+  </script>
+</body>
+</html>
