@@ -151,7 +151,7 @@ To answer that, we calculate **Version 1 ROIC**: NOPAT divided by average invest
 **NOPAT** = EBITA × (1 − normalized cash tax rate), where EBITA adds back amortization of acquired intangibles and goodwill impairment charges to EBIT. **Invested Capital** = Net Working Capital + Net PP&E + Goodwill + Other Intangibles + Operating Lease ROU assets. Average IC (beginning + ending ÷ 2) is used as the denominator to smooth year-end timing.
 
 <div class="chart-embed">
-  <iframe src="/charts/SYK-roic.html" height="700" title="SYK ROIC Version 1 (2012–2025)" loading="lazy" scrolling="no"></iframe>
+  <iframe src="/charts/SYK-roic.html" height="800" title="SYK ROIC Version 1 (2012–2025)" loading="lazy" scrolling="no"></iframe>
   <a href="/charts/SYK-roic.html" target="_blank" rel="noopener" class="chart-link">Open full screen ↗</a>
 </div>
 
