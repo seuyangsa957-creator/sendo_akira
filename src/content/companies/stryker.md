@@ -126,6 +126,92 @@ Mako did not start as Stryker's product. It originated at **MAKO Surgical Corp.*
 
 **Mako 4**, launched at AAOS 2025, is the most significant hardware upgrade in years. The headline addition is **revision hip** — one of orthopedics' most technically demanding procedures, where distorted bone anatomy from the original implant makes precise component positioning exceptionally difficult. Mako 4's robotic constraint transforms a procedure that previously demanded years of subspecialty training into one that is reliably executable with the system's guidance — surgeons in early cases called it a "cheat code for revisions." The result is that existing Mako installations become more valuable, and hospitals that operate at high utilization have a compelling case to add a second or third unit. As of Q4 2025, **30–40% of Mako hospitals already have more than one system installed**.
 
+Why does revision hip matter as a growth driver? The answer is demographic math. Primary hip replacement volumes in the U.S. grew dramatically through the 2000s — and those implants are now hitting the 15–20 year threshold at which revisions cluster. The revision wave is structural, not cyclical.
+
+**Hip implant survival: when do revisions happen?**
+
+<table class="seg-table">
+  <thead>
+    <tr>
+      <th>Time since primary surgery</th>
+      <th>Implant survival rate</th>
+      <th>Cumulative revision rate</th>
+      <th>What drives failure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>10 years</td>
+      <td>~95–97%</td>
+      <td>~3–5%</td>
+      <td>Infection, instability, early loosening</td>
+    </tr>
+    <tr>
+      <td>15 years</td>
+      <td>~89–94%</td>
+      <td><strong>6–11%</strong></td>
+      <td>Aseptic loosening, wear — primary revision window</td>
+    </tr>
+    <tr>
+      <td>20 years</td>
+      <td>~83–91%</td>
+      <td><strong>9–17%</strong></td>
+      <td>Cumulative wear, osteolysis, component failure</td>
+    </tr>
+    <tr>
+      <td>25 years</td>
+      <td>~58%</td>
+      <td>~42%</td>
+      <td>Most implants from this era require revision</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="seg-note">Source: Lancet systematic review and meta-analysis of 15+ year registry data; PMC worldwide THA survival analysis (2024). Survival rates vary by implant type, fixation method, and patient age. Modern bearing surfaces (highly crosslinked polyethylene) have reduced wear rates ~5× vs. older materials, improving survival in more recent cohorts.</p>
+
+**The revision wave: 2000s primary cohort now entering the revision window**
+
+<table class="seg-table">
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Data</th>
+      <th>Source / note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>U.S. primary hip replacements, mid-2000s</td>
+      <td>~300–400K/year</td>
+      <td>Medicare registry; baseline cohort now aged 15–20 yrs post-op</td>
+    </tr>
+    <tr>
+      <td>Implied revisions from 2005–2010 cohort alone</td>
+      <td><strong>~30–44K additional cases/year</strong></td>
+      <td>~300–400K × 10% revision rate at 15 yrs, entering market now</td>
+    </tr>
+    <tr>
+      <td>Projected revision THA growth to 2030</td>
+      <td><strong>+176%</strong></td>
+      <td>Arthroplasty Today / PMC projection study (2023)</td>
+    </tr>
+    <tr>
+      <td>Projected primary THA volume by 2030</td>
+      <td>635,000/year</td>
+      <td>+71% from baseline — seeding the next revision wave</td>
+    </tr>
+    <tr>
+      <td>Revision THA as % of total hip procedures today</td>
+      <td>~15–18%</td>
+      <td>Growing faster than primary; projected to widen through 2040</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="seg-note">Source: Projections and Epidemiology of Revision Hip and Knee Arthroplasty in the United States to 2040–2060 (Arthroplasty Today, 2023); Projections to 2030 (Journal of Arthroplasty, 2020). Projections based on 2000–2019 Medicare procedure data.</p>
+
+The structural setup: a growing pool of revision cases that are technically demanding, increasing in volume, and historically concentrated among subspecialists. Mako 4's robotic constraint is designed precisely for this procedure — and it is arriving at the inflection point of the revision wave.
+
 **Mako RPS** targets a fundamentally different customer. Where full Mako requires CT imaging, a large footprint, and significant staff re-training, RPS uses X-ray imaging, has a smaller form factor, and is built to minimize workflow disruption. It is TKA-only at launch, priced to reach settings the full arm cannot, and sold by the same Mako sales force. It is designed for two groups: surgeons who want robotic assistance without full Mako's change management burden, and ASCs that cannot yet accommodate the full system. The same implant lock-in logic applies — every RPS procedure requires Stryker implants.
 
 ---
