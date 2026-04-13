@@ -191,9 +191,14 @@ Why does revision hip matter as a growth driver? The answer is demographic math.
       <td>~300–400K × 10% revision rate at 15 yrs, entering market now</td>
     </tr>
     <tr>
-      <td>Projected revision THA growth to 2030</td>
-      <td><strong>+176%</strong></td>
-      <td>Arthroplasty Today / PMC projection study (2023)</td>
+      <td>Revision THA volume — 2014 base (actual)</td>
+      <td>~50,000/year</td>
+      <td>National Inpatient Sample; Journal of Arthroplasty (2020)</td>
+    </tr>
+    <tr>
+      <td>Revision THA volume — 2030 projection</td>
+      <td><strong>~138,000/year</strong></td>
+      <td>+176% from 2014 base; nearly 3× the market in ~15 years</td>
     </tr>
     <tr>
       <td>Projected primary THA volume by 2030</td>
@@ -208,7 +213,7 @@ Why does revision hip matter as a growth driver? The answer is demographic math.
   </tbody>
 </table>
 
-<p class="seg-note">Source: Projections and Epidemiology of Revision Hip and Knee Arthroplasty in the United States to 2040–2060 (Arthroplasty Today, 2023); Projections to 2030 (Journal of Arthroplasty, 2020). Projections based on 2000–2019 Medicare procedure data.</p>
+<p class="seg-note">Source: Projections and Epidemiology of Revision Hip and Knee Arthroplasty in the United States to 2030 (Journal of Arthroplasty, 2020); National Inpatient Sample 2002–2014. The +176% projection uses 2014 (~50K procedures) as the base year — a portion of this growth has already materialized. The 2030 endpoint of ~138K procedures/year is the more useful reference for forward-looking analysis.</p>
 
 The structural setup: a growing pool of revision cases that are technically demanding, increasing in volume, and historically concentrated among subspecialists. Mako 4's robotic constraint is designed precisely for this procedure — and it is arriving at the inflection point of the revision wave.
 
