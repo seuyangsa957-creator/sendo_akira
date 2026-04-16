@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SYK — Wright Medical: Filling the Extremities Gap</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-card: #f9fafb;
+      --text: #111111;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #3d6b9e;
+      --bar-legacy: rgba(61,107,158,0.75);
+      --bar-legacy-border: rgba(30,58,95,0.9);
+      --bar-wright: rgba(124,58,237,0.70);
+      --bar-wright-border: rgba(91,33,182,0.9);
+      --grid: #e5e7eb;
+      --kpi-bg: #f3f4f6;
+      --green: #16a34a;
+      --green-bg: rgba(22,163,74,0.10);
+      --red-bg: rgba(220,38,38,0.09);
+      --red-text: #b91c1c;
+      --na-bg: #f9fafb;
+      --na-text: #9ca3af;
+    }
+    html.dark {
+      --bg: #0f0f0f;
+      --bg-card: #171717;
+      --text: #e5e5e5;
+      --text-muted: #9ca3af;
+      --border: #262626;
+      --accent: #a8c4de;
+      --bar-legacy: rgba(77,130,184,0.70);
+      --bar-legacy-border: rgba(61,107,158,0.9);
+      --bar-wright: rgba(167,139,250,0.65);
+      --bar-wright-border: rgba(139,92,246,0.9);
+      --grid: #1f1f1f;
+      --kpi-bg: #1a1a1a;
+      --green: #4ade80;
+      --green-bg: rgba(22,163,74,0.14);
+      --red-bg: rgba(220,38,38,0.13);
+      --red-text: #f87171;
+      --na-bg: #111;
+      --na-text: #4b5563;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      padding: 24px 20px 24px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .ticker-row {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;
+    }
+    .title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
+    .subtitle { font-size: 11.5px; color: var(--text-muted); line-height: 1.4; margin-bottom: 18px; }
+
+    /* KPIs */
+    .kpi-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+    .kpi { background: var(--kpi-bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; flex: 1; min-width: 100px; }
+    .kpi-label { font-size: 10px; font-weight: 600; letter-spacing: 0.06em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
+    .kpi-value { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; }
+    .kpi-value.green { color: var(--green); }
+    .kpi-delta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+    /* Chart */
+    .chart-wrap { position: relative; width: 100%; margin-bottom: 24px; }
+
+    /* Divider */
+    .section-title {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-muted);
+      border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 12px;
+    }
+
+    /* Portfolio grid */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .portfolio-col {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .portfolio-col-header {
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .col-before .portfolio-col-header { background: var(--red-bg); color: var(--red-text); }
+    .col-after  .portfolio-col-header { background: var(--green-bg); color: var(--green); }
+    .portfolio-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      font-size: 12px;
+      border-top: 1px solid var(--border);
+      color: var(--text);
+    }
+    .portfolio-item .icon { font-size: 13px; flex-shrink: 0; width: 18px; text-align: center; }
+    .portfolio-item .label { line-height: 1.3; }
+    .portfolio-item .sub { font-size: 10.5px; color: var(--text-muted); display: block; }
+    .portfolio-item.added { background: var(--green-bg); }
+    .portfolio-item.existing { background: transparent; }
+    .portfolio-item.weak { opacity: 0.45; }
+
+    /* Legend */
+    .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; font-size: 11px; color: var(--text-muted); }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .leg-box { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+    .leg-legacy { background: var(--bar-legacy); border: 1.5px solid rgba(30,58,95,0.5); }
+    .leg-wright { background: var(--bar-wright); border: 1.5px solid rgba(91,33,182,0.5); }
+
+    /* Note */
+    .note {
+      font-size: 10.5px; color: var(--text-muted); line-height: 1.6;
+      border-top: 1px solid var(--border); padding-top: 12px; margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="ticker-row">SYK — Stryker Corporation · Wright Medical Acquisition</div>
+  <div class="title">$4.0B to fill the extremities gap — T&E nearly triples in five years</div>
+  <div class="subtitle">Trauma & Extremities segment revenue · Wright Medical acquired November 2020 · ~$920M revenue at acquisition</div>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">Acquisition price</div>
+      <div class="kpi-value">$4.0B</div>
+      <div class="kpi-delta">$5.4B EV incl. convert. notes</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Wright revenue at close</div>
+      <div class="kpi-value">~$920M</div>
+      <div class="kpi-delta">2019 standalone; loss-making</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">T&E revenue (2025)</div>
+      <div class="kpi-value green">$3.95B</div>
+      <div class="kpi-delta">+12.6% YoY · consistent outperformer</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Revenue multiple (current)</div>
+      <div class="kpi-value green">~3x</div>
+      <div class="kpi-delta">Paid ~5.9x revenue; now ~3x on run rate</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="leg-box leg-legacy"></span>Legacy Stryker T&E (est.)</div>
+    <div class="legend-item"><span class="leg-box leg-wright"></span>Wright Medical contribution (est.)</div>
+  </div>
+
+  <div class="chart-wrap">
+    <canvas id="wrightChart" height="300"></canvas>
+  </div>
+
+  <div class="section-title">What Wright Medical added to Stryker's orthopaedics portfolio</div>
+
+  <div class="portfolio-grid">
+    <div class="portfolio-col col-before">
+      <div class="portfolio-col-header">Before Wright Medical (2019)</div>
+      <div class="portfolio-item existing">
+        <span class="icon">✓</span>
+        <span class="label">Knees<span class="sub">TKA, Mako robotic platform</span></span>
+      </div>
+      <div class="portfolio-item existing">
+        <span class="icon">✓</span>
+        <span class="label">Hips<span class="sub">THA, Mako robotic platform</span></span>
+      </div>
+      <div class="portfolio-item existing">
+        <span class="icon">✓</span>
+        <span class="label">Trauma & fixation<span class="sub">Fracture repair, long bone</span></span>
+      </div>
+      <div class="portfolio-item weak">
+        <span class="icon">–</span>
+        <span class="label">Shoulder<span class="sub">Minimal presence</span></span>
+      </div>
+      <div class="portfolio-item weak">
+        <span class="icon">✗</span>
+        <span class="label">Foot & Ankle<span class="sub">Not competitive</span></span>
+      </div>
+      <div class="portfolio-item weak">
+        <span class="icon">✗</span>
+        <span class="label">Elbow, Wrist & Hand<span class="sub">Absent</span></span>
+      </div>
+      <div class="portfolio-item weak">
+        <span class="icon">✗</span>
+        <span class="label">Biologics<span class="sub">Bone graft, soft tissue — absent</span></span>
+      </div>
+    </div>
+    <div class="portfolio-col col-after">
+      <div class="portfolio-col-header">After Wright Medical (2020+)</div>
+      <div class="portfolio-item existing">
+        <span class="icon">✓</span>
+        <span class="label">Knees<span class="sub">Unchanged</span></span>
+      </div>
+      <div class="portfolio-item existing">
+        <span class="icon">✓</span>
+        <span class="label">Hips<span class="sub">Unchanged</span></span>
+      </div>
+      <div class="portfolio-item existing">
+        <span class="icon">✓</span>
+        <span class="label">Trauma & fixation<span class="sub">Strengthened with Wright assets</span></span>
+      </div>
+      <div class="portfolio-item added">
+        <span class="icon">✓</span>
+        <span class="label">Shoulder (total & reverse)<span class="sub">Global #1 in upper extremities</span></span>
+      </div>
+      <div class="portfolio-item added">
+        <span class="icon">✓</span>
+        <span class="label">Foot & Ankle<span class="sub">Top-2 position; fast-growing segment</span></span>
+      </div>
+      <div class="portfolio-item added">
+        <span class="icon">✓</span>
+        <span class="label">Elbow, Wrist & Hand<span class="sub">Full upper extremity coverage</span></span>
+      </div>
+      <div class="portfolio-item added">
+        <span class="icon">✓</span>
+        <span class="label">Biologics<span class="sub">GRAFTJACKET + bone graft substitutes</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    Revenue estimates for 2019–2021 are approximated: Legacy SYK T&E grown at ~5% organic from 2019 base (~$1.6B); Wright Medical contribution estimated from standalone ~$920M revenue base grown at segment organic rates. 2022–2025 T&E figures are reported actuals from Stryker 10-K filings. Stryker does not separately disclose legacy vs. Wright revenue within the T&E segment.<br/>
+    Wright Medical was acquired November 11, 2020 at $30.75/share (~$4.0B equity, ~$5.4B EV including convertible notes). Source: Stryker investor relations, Stryker 10-K (2020–2025).
+  </div>
+
+  <script>
+    (function() {
+      try {
+        if (window.parent && window.parent.document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch(e) {}
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+
+    const isDark = document.documentElement.classList.contains('dark');
+    const gridColor  = isDark ? '#1f1f1f' : '#e5e7eb';
+    const textColor  = isDark ? '#9ca3af' : '#6b7280';
+
+    const years   = [2019, 2020, 2021, 2022, 2023, 2024, 2025];
+
+    // Estimated split: legacy SYK T&E vs Wright contribution
+    const legacy  = [1600, 1520, 1680, 1860, 2050, 2260, 2548]; // est. organic growth on pre-Wright base
+    const wright  = [0,     200,  820,  950, 1097, 1247, 1400]; // est. Wright contribution
+
+    const ctx = document.getElementById('wrightChart').getContext('2d');
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: years,
+        datasets: [
+          {
+            label: 'Legacy Stryker T&E (est.)',
+            data: legacy,
+            backgroundColor: isDark ? 'rgba(77,130,184,0.70)' : 'rgba(61,107,158,0.75)',
+            borderColor:     isDark ? 'rgba(61,107,158,0.9)'  : 'rgba(30,58,95,0.9)',
+            borderWidth: 1,
+            borderRadius: 3,
+            stack: 'stack'
+          },
+          {
+            label: 'Wright Medical contribution (est.)',
+            data: wright,
+            backgroundColor: isDark ? 'rgba(167,139,250,0.65)' : 'rgba(124,58,237,0.70)',
+            borderColor:     isDark ? 'rgba(139,92,246,0.9)'   : 'rgba(91,33,182,0.9)',
+            borderWidth: 1,
+            borderRadius: 3,
+            stack: 'stack'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: isDark ? '#1f1f1f' : '#ffffff',
+            borderColor: isDark ? '#333' : '#e5e7eb',
+            borderWidth: 1,
+            titleColor: isDark ? '#e5e5e5' : '#111',
+            bodyColor: textColor,
+            padding: 10,
+            callbacks: {
+              label: ctx => {
+                const val = ctx.parsed.y;
+                const est = ctx.dataIndex < 4 ? ' (est.)' : '';
+                return `  ${ctx.dataset.label.split(' (')[0]}: $${val.toLocaleString()}M${est}`;
+              },
+              afterBody: ctx => {
+                const total = legacy[ctx[0].dataIndex] + wright[ctx[0].dataIndex];
+                const est = ctx[0].dataIndex < 4 ? ' est.' : ' reported';
+                return [`  Total T&E: $${total.toLocaleString()}M${est}`];
+              }
+            }
+          },
+          annotation: {
+            annotations: {
+              acqLine: {
+                type: 'line',
+                xMin: 1.5,
+                xMax: 1.5,
+                borderColor: isDark ? 'rgba(250,204,21,0.5)' : 'rgba(202,138,4,0.45)',
+                borderWidth: 1.5,
+                borderDash: [5, 4]
+              },
+              acqLabel: {
+                type: 'label',
+                xValue: 1.5,
+                yValue: 3400,
+                content: ['Wright Medical', 'acquired Nov 2020'],
+                font: { size: 10, weight: '600' },
+                color: isDark ? '#fbbf24' : '#92400e',
+                textAlign: 'center',
+                padding: 4
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            stacked: true,
+            grid: { color: gridColor },
+            ticks: { color: textColor, font: { size: 11 } }
+          },
+          y: {
+            stacked: true,
+            grid: { color: gridColor },
+            ticks: {
+              color: textColor,
+              font: { size: 11 },
+              callback: v => '$' + (v/1000).toFixed(1) + 'B'
+            },
+            max: 4500,
+            title: {
+              display: true,
+              text: 'T&E Revenue ($M)',
+              color: textColor,
+              font: { size: 11 }
+            }
+          }
+        }
+      }
+    });
+
+    window.addEventListener('message', e => {
+      if (e.data === 'dark') document.documentElement.classList.add('dark');
+      if (e.data === 'light') document.documentElement.classList.remove('dark');
+    });
+  </script>
+</body>
+</html>

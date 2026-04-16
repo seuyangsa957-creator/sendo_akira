@@ -261,6 +261,82 @@ The implication: Stryker's acquisition capability has *improved* over time. Earl
 
 ---
 
+## Case Study: Wright Medical Acquisition in 2020
+
+**TL;DR:** Stryker paid $4.0B to acquire the company that was the global leader in extremities — shoulder, elbow, wrist, hand, foot, and ankle implants — a segment Stryker was largely absent from. Wright Medical brought ~$920M in revenue and a #1 market position in upper extremities. Five years post-close, the combined Trauma & Extremities segment runs at ~$4.0B and has been Stryker's most consistent Ortho outperformer, growing 10–13% annually since integration completed.
+
+Wright Medical was not a distressed asset — it was a high-growth, market-leading extremities pure-play that was loss-making because it lacked the distribution scale to translate revenue into profit. Stryker's salesforce solved that problem immediately: the same reps calling on orthopedic surgeons for knees and hips could now offer shoulder, ankle, and biologics products in the same conversation. It is the cleanest example of the salesforce leverage playbook in Stryker's acquisition history.
+
+**Why extremities mattered:** Knees and hips are large markets but relatively mature. Shoulder, foot, and ankle are structurally higher-growth segments — younger patient populations, expanding procedure eligibility, and rapid ASC migration — that were historically served by smaller specialty companies without major OEM distribution. Wright Medical was the category leader. Stryker bought the #1 position, not a product.
+
+**Revenue since acquisition:**
+
+<table class="seg-table">
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>T&E Segment Revenue</th>
+      <th>YoY Growth</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2019</td>
+      <td>~$1,600M</td>
+      <td>—</td>
+      <td>Stryker legacy T&E only; Wright standalone ~$920M</td>
+    </tr>
+    <tr>
+      <td>2020</td>
+      <td>~$1,720M</td>
+      <td>—</td>
+      <td>Acquisition closed Nov 11; ~7 weeks of Wright consolidated</td>
+    </tr>
+    <tr>
+      <td>2021</td>
+      <td>~$2,500M</td>
+      <td>+45% reported</td>
+      <td>First full year with Wright; integration ongoing, COVID recovery</td>
+    </tr>
+    <tr>
+      <td>2022</td>
+      <td>$2,810M</td>
+      <td>+5.4%</td>
+      <td>Integration drag fading; organic growth resuming</td>
+    </tr>
+    <tr>
+      <td>2023</td>
+      <td>$3,147M</td>
+      <td class="above">+12.1% ↑</td>
+      <td>Integration complete; beats Ortho ex-Spine benchmark</td>
+    </tr>
+    <tr>
+      <td>2024</td>
+      <td>$3,507M</td>
+      <td class="above">+11.4% ↑</td>
+      <td>Consistent outperformer above benchmark</td>
+    </tr>
+    <tr class="row-avg">
+      <td>2025</td>
+      <td>$3,948M</td>
+      <td class="above">+12.6% ↑</td>
+      <td>Strongest segment in Ortho; above ex-Spine benchmark both years</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="seg-note">2019–2021 revenue figures are estimates; Stryker does not separately disclose legacy vs. Wright Medical revenue within T&E. 2022–2025 are reported actuals from Stryker 10-K filings. Wright Medical acquired at $30.75/share (~$4.0B equity, ~$5.4B EV including convertible notes). Source: Stryker investor relations, 10-K filings 2020–2025; National Inpatient Sample.</p>
+
+<div class="chart-embed">
+  <iframe src="/charts/SYK-wright-medical.html" height="780" title="Wright Medical: Filling the Extremities Gap" loading="lazy" scrolling="no"></iframe>
+  <a href="/charts/SYK-wright-medical.html" target="_blank" rel="noopener" class="chart-link">Open full screen ↗</a>
+</div>
+
+The portfolio grid makes the strategic logic visible: Stryker in 2019 was a three-product ortho company (knees, hips, trauma). Wright Medical completed it — adding global #1 positions in shoulder, foot and ankle, elbow, wrist and hand, and a biologics franchise. The T&E segment at ~$4B in 2025 is nearly 2.5x the pre-acquisition baseline and growing at double digits, validating the thesis that extremities was the fastest-growing segment in ortho that Stryker was missing.
+
+---
+
 ## How does Stryker compare to peers?
 
 Within MedTech, Stryker trades at **~22x NTM P/E and ~$128B market cap** — a premium to pure orthopedic peers (Zimmer Biomet at ~11x, Medtronic at ~15x) but a meaningful discount to Intuitive Surgical (~47x) and growth-oriented peers like Boston Scientific (~20x). The key question is: which peer group is the right reference?
