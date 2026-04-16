@@ -329,7 +329,7 @@ Wright Medical was not a distressed asset — it was a high-growth, market-leadi
 <p class="seg-note">2019–2021 revenue figures are estimates; Stryker does not separately disclose legacy vs. Wright Medical revenue within T&E. 2022–2025 are reported actuals from Stryker 10-K filings. Wright Medical acquired at $30.75/share (~$4.0B equity, ~$5.4B EV including convertible notes). Source: Stryker investor relations, 10-K filings 2020–2025; National Inpatient Sample.</p>
 
 <div class="chart-embed">
-  <iframe src="/charts/SYK-wright-medical.html" height="780" title="Wright Medical: Filling the Extremities Gap" loading="lazy" scrolling="no"></iframe>
+  <iframe src="/charts/SYK-wright-medical.html" height="860" title="Wright Medical: Filling the Extremities Gap" loading="lazy" scrolling="no"></iframe>
   <a href="/charts/SYK-wright-medical.html" target="_blank" rel="noopener" class="chart-link">Open full screen ↗</a>
 </div>
 

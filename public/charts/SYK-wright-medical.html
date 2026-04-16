@@ -71,7 +71,7 @@
     .kpi-delta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 
     /* Chart */
-    .chart-wrap { position: relative; width: 100%; margin-bottom: 24px; }
+    .chart-wrap { position: relative; width: 100%; height: 260px; margin-bottom: 24px; }
 
     /* Divider */
     .section-title {
@@ -165,7 +165,7 @@
   </div>
 
   <div class="chart-wrap">
-    <canvas id="wrightChart" height="300"></canvas>
+    <canvas id="wrightChart"></canvas>
   </div>
 
   <div class="section-title">What Wright Medical added to Stryker's orthopaedics portfolio</div>
@@ -291,6 +291,7 @@
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         interaction: { mode: 'index', intersect: false },
         plugins: {
           legend: { display: false },
