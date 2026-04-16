@@ -329,11 +329,49 @@ Wright Medical was not a distressed asset — it was a high-growth, market-leadi
 <p class="seg-note">2019–2021 revenue figures are estimates; Stryker does not separately disclose legacy vs. Wright Medical revenue within T&E. 2022–2025 are reported actuals from Stryker 10-K filings. Wright Medical acquired at $30.75/share (~$4.0B equity, ~$5.4B EV including convertible notes). Source: Stryker investor relations, 10-K filings 2020–2025; National Inpatient Sample.</p>
 
 <div class="chart-embed">
-  <iframe src="/charts/SYK-wright-medical.html" height="860" title="Wright Medical: Filling the Extremities Gap" loading="lazy" scrolling="no"></iframe>
+  <iframe src="/charts/SYK-wright-medical.html" height="440" title="Wright Medical T&E Revenue" loading="lazy" scrolling="no"></iframe>
   <a href="/charts/SYK-wright-medical.html" target="_blank" rel="noopener" class="chart-link">Open full screen ↗</a>
 </div>
 
-The portfolio grid makes the strategic logic visible: Stryker in 2019 was a three-product ortho company (knees, hips, trauma). Wright Medical completed it — adding global #1 positions in shoulder, foot and ankle, elbow, wrist and hand, and a biologics franchise. The T&E segment at ~$4B in 2025 is nearly 2.5x the pre-acquisition baseline and growing at double digits, validating the thesis that extremities was the fastest-growing segment in ortho that Stryker was missing.
+**What Wright Medical added to Stryker's orthopaedics portfolio**
+
+<style>
+  .pf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1rem 0 1.25rem; }
+  .pf-col { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; font-size: 0.82rem; }
+  .pf-col-hdr { padding: 7px 12px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; }
+  .pf-col-hdr.before { background: rgba(220,38,38,0.08); color: #b91c1c; }
+  .pf-col-hdr.after  { background: rgba(22,163,74,0.09); color: #15803d; }
+  .pf-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 12px; border-top: 1px solid var(--border); line-height: 1.35; }
+  .pf-item.added { background: rgba(22,163,74,0.07); }
+  .pf-item.missing { opacity: 0.38; }
+  .pf-icon { flex-shrink: 0; width: 14px; padding-top: 1px; }
+  .pf-sub { font-size: 0.72rem; color: var(--text-muted); display: block; }
+</style>
+
+<div class="pf-grid">
+  <div class="pf-col">
+    <div class="pf-col-hdr before">Before Wright Medical (2019)</div>
+    <div class="pf-item"><span class="pf-icon">✓</span><span>Knees<span class="pf-sub">TKA, Mako robotic platform</span></span></div>
+    <div class="pf-item"><span class="pf-icon">✓</span><span>Hips<span class="pf-sub">THA, Mako robotic platform</span></span></div>
+    <div class="pf-item"><span class="pf-icon">✓</span><span>Trauma &amp; fixation<span class="pf-sub">Fracture repair, long bone</span></span></div>
+    <div class="pf-item missing"><span class="pf-icon">–</span><span>Shoulder<span class="pf-sub">Minimal presence</span></span></div>
+    <div class="pf-item missing"><span class="pf-icon">✗</span><span>Foot &amp; Ankle<span class="pf-sub">Not competitive</span></span></div>
+    <div class="pf-item missing"><span class="pf-icon">✗</span><span>Elbow, Wrist &amp; Hand<span class="pf-sub">Absent</span></span></div>
+    <div class="pf-item missing"><span class="pf-icon">✗</span><span>Biologics<span class="pf-sub">Bone graft, soft tissue — absent</span></span></div>
+  </div>
+  <div class="pf-col">
+    <div class="pf-col-hdr after">After Wright Medical (2020+)</div>
+    <div class="pf-item"><span class="pf-icon">✓</span><span>Knees<span class="pf-sub">Unchanged</span></span></div>
+    <div class="pf-item"><span class="pf-icon">✓</span><span>Hips<span class="pf-sub">Unchanged</span></span></div>
+    <div class="pf-item"><span class="pf-icon">✓</span><span>Trauma &amp; fixation<span class="pf-sub">Strengthened with Wright assets</span></span></div>
+    <div class="pf-item added"><span class="pf-icon">✓</span><span>Shoulder (total &amp; reverse)<span class="pf-sub">Global #1 in upper extremities</span></span></div>
+    <div class="pf-item added"><span class="pf-icon">✓</span><span>Foot &amp; Ankle<span class="pf-sub">Top-2 position; fast-growing segment</span></span></div>
+    <div class="pf-item added"><span class="pf-icon">✓</span><span>Elbow, Wrist &amp; Hand<span class="pf-sub">Full upper extremity coverage</span></span></div>
+    <div class="pf-item added"><span class="pf-icon">✓</span><span>Biologics<span class="pf-sub">GRAFTJACKET + bone graft substitutes</span></span></div>
+  </div>
+</div>
+
+Stryker in 2019 was a three-product ortho company (knees, hips, trauma). Wright Medical completed it — adding global #1 positions in shoulder, foot and ankle, elbow, wrist and hand, and a biologics franchise. The T&E segment at ~$4B in 2025 is nearly 2.5x the pre-acquisition baseline and growing at double digits, validating the thesis that extremities was the fastest-growing segment in ortho that Stryker was missing.
 
 ---
 
